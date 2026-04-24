@@ -1,0 +1,180 @@
+Metadata-Version: 2.4
+Name: network-intrusion-detection-system
+Version: 0.1.0
+Summary: A layered network-based intrusion detection system with signature, anomaly, and correlation analytics.
+Author: OpenAI Codex
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: scapy>=2.5.0
+
+# Network-Based Intrusion Detection System
+
+This project is a layered Network-Based Intrusion Detection System (NIDS) for flow telemetry. It now combines signature matching, statistical anomaly detection, protocol-aware heuristics, context-aware precision tuning, and alert correlation.
+
+The goal is not only to generate more alerts. The detector tries to reduce false negatives by looking across more protocols and behaviors, while also reducing false positives with asset context, authorized infrastructure lists, confidence scoring, and approved-scanner suppression.
+
+## Capabilities
+
+- Real-time packet capture with Scapy
+- Signature rules for scanning, SSH/RDP brute force, DNS tunneling, HTTPS exfiltration, SMTP spam relay behavior, and NTP amplification
+- Protocol heuristics for HTTP, TLS, DNS, SMB, RDP, SSH, ICMP, DHCP, SMTP, NTP, and LDAP
+- Behavioral anomaly detection using protocol-and-port baselines with z-score scoring
+- Live online anomaly model that learns packet-flow feature baselines after signature detection
+- Context-aware precision tuning for critical assets, internal CIDRs, approved scanners, trusted DNS, trusted DHCP, and suspicious JA3 fingerprints
+- Correlation that escalates repeated source-level findings into campaign-level incidents
+- JSONL live alert logging for SOC-style pipelines
+- Simple browser dashboard for live alert monitoring
+- Analyst reports in JSON and HTML with severity, category, confidence, protocol counts, top talkers, and alert timelines
+- Regression tests that check protocol coverage and guard against obvious false positives
+
+## Architecture
+
+```text
+network-intrusion-detection-system/
+|-- configs/
+|   `-- detector_config.json
+|-- data/
+|   `-- sample_flows.jsonl
+|-- reports/
+|-- src/nids/
+|   |-- alert_log.py
+|   |-- anomaly.py
+|   |-- cli.py
+|   |-- context.py
+|   |-- correlation.py
+|   |-- dashboard.py
+|   |-- engine.py
+|   |-- live_capture.py
+|   |-- loader.py
+|   |-- ml_anomaly.py
+|   |-- models.py
+|   |-- precision.py
+|   |-- protocols.py
+|   |-- realtime.py
+|   |-- reporting.py
+|   `-- rules.py
+|-- tests/
+|   `-- test_detection_pipeline.py
+|-- pyproject.toml
+|-- README.md
+`-- run_nids.py
+```
+
+## Detection Pipeline
+
+1. Scapy captures live packets or JSONL flow records are loaded from disk.
+2. Packets are normalized into typed `FlowRecord` models.
+3. Phase 1 runs signature rules immediately for fast known-threat detection.
+4. Live mode also runs an online anomaly model over packet-flow features.
+5. Phase 2 runs rolling anomaly and protocol-aware analytics over recent traffic.
+6. Precision tuning suppresses known approved scanning and boosts confidence for critical assets and external-to-internal traffic.
+7. Correlation groups repeated findings from a source into campaign alerts.
+8. Batch mode writes JSON/HTML reports, while live mode streams JSONL alerts and updates the dashboard.
+
+## Quick Start
+
+From the project root:
+
+```powershell
+cd "e:\Cybersec Projects\network-intrusion-detection-system"
+python .\run_nids.py --input data\sample_flows.jsonl --config configs\detector_config.json --output-dir reports
+```
+
+Run the regression tests:
+
+```powershell
+python -m unittest discover -s tests
+```
+
+If you want the CLI command:
+
+```powershell
+pip install -e .
+nids --input data\sample_flows.jsonl --config configs\detector_config.json --output-dir reports
+```
+
+## Real-Time Mode
+
+Install the package dependency first:
+
+```powershell
+cd "e:\Cybersec Projects\network-intrusion-detection-system"
+pip install -e .
+```
+
+On Windows, live packet capture usually requires Npcap and an Administrator PowerShell. Install Npcap from the Wireshark/Npcap installer if Scapy cannot capture packets.
+
+List available capture interfaces:
+
+```powershell
+python .\run_nids.py --list-interfaces
+```
+
+Start live capture with the dashboard:
+
+```powershell
+python .\run_nids.py --live --dashboard --config configs\detector_config.json --alert-log logs\live_alerts.jsonl
+```
+
+Open the dashboard:
+
+```text
+http://127.0.0.1:8765
+```
+
+Capture on a specific interface:
+
+```powershell
+python .\run_nids.py --live --dashboard --interface "Wi-Fi" --bpf "ip or ip6" --alert-log logs\live_alerts.jsonl
+```
+
+The live architecture is intentionally two-phase:
+
+- Phase 1: signature rules run immediately on each captured packet.
+- ML layer: an online anomaly model learns feature baselines from live packet-flow records.
+- Phase 2: statistical anomaly, protocol, and correlation analytics run on a rolling traffic window.
+
+## Protocol Coverage
+
+- `HTTP`: exploit-like URI paths, risky methods, scanner user agents
+- `TLS/HTTPS`: suspicious JA3 fingerprints, deprecated TLS versions, large no-SNI egress
+- `DNS`: tunneling-style long labels and unapproved resolver usage
+- `SMB`: external SMB access and administrative share access
+- `RDP/SSH/LDAP`: failed authentication pressure and external access attempts
+- `ICMP`: ping sweeps and bursty echo traffic
+- `DHCP`: rogue DHCP offer or acknowledgement detection
+- `SMTP`: direct high-volume outbound mail from internal hosts
+- `NTP`: amplification-like request/response behavior
+
+## Tuning For Precision
+
+Edit `configs/detector_config.json` to adjust the system without touching code:
+
+- `assets.internal_cidrs`: networks treated as internal
+- `assets.critical_assets`: hosts that increase alert confidence when targeted
+- `assets.approved_scanners`: sanctioned sources whose scan-like alerts are suppressed
+- `assets.authorized_dns_servers`: approved DNS resolvers
+- `assets.authorized_dhcp_servers`: approved DHCP servers
+- `assets.suspicious_ja3`: TLS client fingerprints worth flagging
+- `min_confidence`: threshold for filtering low-confidence, low-severity alerts
+
+## Sample Threats Covered
+
+- Web exploit probing with scanner user agents
+- DNS tunneling and unapproved external resolver use
+- Large HTTPS exfiltration with suspicious TLS fingerprinting
+- Horizontal service scanning and lateral movement probing
+- SSH and RDP authentication pressure
+- External SMB and LDAP access attempts
+- ICMP host sweeping
+- Rogue DHCP service behavior
+- SMTP spam relay behavior
+- NTP amplification patterns
+
+## Extension Ideas
+
+- Parse real Zeek `conn.log`, `dns.log`, `ssl.log`, and `http.log` files
+- Emit alerts in Elastic Common Schema or Open Cybersecurity Schema Framework format
+- Add threat-intelligence enrichment for external IPs and JA3 values
+- Maintain per-subnet, per-role, and time-of-day baselines
+- Add a dashboard view for alert triage and drill-down
