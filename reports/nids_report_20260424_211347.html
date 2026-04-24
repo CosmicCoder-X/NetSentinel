@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>NIDS Report</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --panel-alt: #172033;
+      --text: #e5eef9;
+      --muted: #98a7c2;
+      --accent: #f97316;
+      --danger: #ef4444;
+      --ok: #22c55e;
+      --line: rgba(148, 163, 184, 0.16);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(249, 115, 22, 0.18), transparent 26%),
+        linear-gradient(180deg, #020617 0%, var(--bg) 100%);
+      color: var(--text);
+    }
+    .wrap { width: min(1180px, calc(100% - 32px)); margin: 32px auto; }
+    .hero {
+      background: linear-gradient(135deg, rgba(249,115,22,0.18), rgba(17,24,39,0.92));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    .hero h1 { margin: 0 0 8px; font-size: 32px; }
+    .hero p { margin: 0; color: var(--muted); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .card, .panel {
+      background: rgba(17, 24, 39, 0.82);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+    }
+    .card span { display: block; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .card strong { display: block; margin-top: 12px; font-size: 30px; }
+    .two-up {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    ul { list-style: none; margin: 0; padding: 0; }
+    li {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+    }
+    table { width: 100%; border-collapse: collapse; }
+    th, td {
+      text-align: left;
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      font-size: 14px;
+    }
+    th { color: var(--muted); font-weight: 600; }
+    .footer { color: var(--muted); font-size: 13px; margin-top: 18px; }
+    @media (max-width: 900px) {
+      .two-up { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>Network Intrusion Detection Report</h1>
+      <p>Generated 2026-04-24 21:13:47 with layered signature, anomaly, and campaign correlation analytics.</p>
+    </section>
+    <section class="grid"><div class='card'><span>Flows Processed</span><strong>17</strong></div><div class='card'><span>Alerts Raised</span><strong>29</strong></div><div class='card'><span>Critical Alerts</span><strong>13</strong></div><div class='card'><span>High Alerts</span><strong>14</strong></div></section>
+    <section class="two-up">
+      <div class="panel">
+        <h2>Top Talkers</h2>
+        <ul><li><strong>10.0.1.90</strong><span>8,018,600 bytes</span></li><li><strong>10.0.1.13</strong><span>1,272,000 bytes</span></li><li><strong>10.0.1.10</strong><span>859,600 bytes</span></li><li><strong>10.0.1.12</strong><span>93,000 bytes</span></li><li><strong>10.0.1.15</strong><span>12,000 bytes</span></li></ul>
+      </div>
+      <div class="panel">
+        <h2>Alert Distribution</h2>
+        <ul>
+          <li><strong>Severity</strong><span>{"high": 14, "medium": 2, "critical": 13}</span></li>
+          <li><strong>Category</strong><span>{"signature": 19, "anomaly": 7, "correlation": 3}</span></li>
+        </ul>
+      </div>
+    </section>
+    <section class="panel">
+      <h2>Alert Timeline</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>ID</th>
+            <th>Severity</th>
+            <th>Category</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Title</th>
+            <th>Reasons</th>
+          </tr>
+        </thead>
+        <tbody><tr><td>2026-04-24 09:00:00</td><td>SIG-PORTSCAN-0001</td><td>HIGH</td><td>signature</td><td>10.0.1.10</td><td>10.0.2.20</td><td>Rapid horizontal scan</td><td>Flags repeated probing behavior from a single source.</td></tr><tr><td>2026-04-24 09:00:41</td><td>SIG-PORTSCAN-0002</td><td>HIGH</td><td>signature</td><td>10.0.1.12</td><td>10.0.2.22</td><td>Rapid horizontal scan</td><td>Flags repeated probing behavior from a single source.</td></tr><tr><td>2026-04-24 09:01:05</td><td>SIG-PORTSCAN-0003</td><td>HIGH</td><td>signature</td><td>10.0.1.10</td><td>10.0.2.30</td><td>Rapid horizontal scan</td><td>Flags repeated probing behavior from a single source.</td></tr><tr><td>2026-04-24 09:01:23</td><td>SIG-PORTSCAN-0004</td><td>HIGH</td><td>signature</td><td>10.0.1.14</td><td>10.0.2.44</td><td>Rapid horizontal scan</td><td>Flags repeated probing behavior from a single source.</td></tr><tr><td>2026-04-24 09:01:50</td><td>SIG-PORTSCAN-0005</td><td>HIGH</td><td>signature</td><td>10.0.1.13</td><td>10.0.2.25</td><td>Rapid horizontal scan</td><td>Flags repeated probing behavior from a single source.</td></tr><tr><td>2026-04-24 09:02:17</td><td>SIG-PORTSCAN-0006</td><td>HIGH</td><td>signature</td><td>10.0.1.15</td><td>10.0.2.26</td><td>Rapid horizontal scan</td><td>Flags repeated probing behavior from a single source.</td></tr><tr><td>2026-04-24 09:03:08</td><td>SIG-PORTSCAN-0007</td><td>HIGH</td><td>signature</td><td>172.16.5.99</td><td>10.0.2.100</td><td>Rapid horizontal scan</td><td>Flags repeated probing behavior from a single source.</td></tr><tr><td>2026-04-24 09:03:10</td><td>ANOM-0020</td><td>CRITICAL</td><td>anomaly</td><td>172.16.5.99</td><td>10.0.2.101</td><td>Behavioral anomaly detected</td><td>bytes_out z-score 680.00 exceeded threshold; duration_ms z-score 1675.00 exceeded threshold; packets_out z-score 10.00 exceeded threshold</td></tr><tr><td>2026-04-24 09:03:10</td><td>SIG-PORTSCAN-0008</td><td>HIGH</td><td>signature</td><td>172.16.5.99</td><td>10.0.2.101</td><td>Rapid horizontal scan</td><td>Flags repeated probing behavior from a single source.</td></tr><tr><td>2026-04-24 09:03:12</td><td>SIG-PORTSCAN-0009</td><td>HIGH</td><td>signature</td><td>172.16.5.99</td><td>10.0.2.102</td><td>Rapid horizontal scan</td><td>Flags repeated probing behavior from a single source.</td></tr><tr><td>2026-04-24 09:03:16</td><td>ANOM-0021</td><td>CRITICAL</td><td>anomaly</td><td>172.16.5.99</td><td>10.0.2.103</td><td>Behavioral anomaly detected</td><td>bytes_out z-score 220.00 exceeded threshold; duration_ms z-score 180.00 exceeded threshold; source touched at least 4 distinct destination ports</td></tr><tr><td>2026-04-24 09:03:16</td><td>CORR-0027</td><td>CRITICAL</td><td>correlation</td><td>172.16.5.99</td><td>multiple</td><td>Multi-stage intrusion campaign</td><td>6 alerts from the same source exceeded the campaign threshold; alert mix: anomaly=2, signature=4</td></tr><tr><td>2026-04-24 09:03:16</td><td>SIG-PORTSCAN-0010</td><td>HIGH</td><td>signature</td><td>172.16.5.99</td><td>10.0.2.103</td><td>Rapid horizontal scan</td><td>Flags repeated probing behavior from a single source.</td></tr><tr><td>2026-04-24 09:03:40</td><td>ANOM-0022</td><td>CRITICAL</td><td>anomaly</td><td>10.0.1.77</td><td>10.0.2.50</td><td>Behavioral anomaly detected</td><td>bytes_out z-score 2100.00 exceeded threshold; duration_ms z-score 400.00 exceeded threshold; packets_out z-score 10.00 exceeded threshold</td></tr><tr><td>2026-04-24 09:03:40</td><td>SIG-BRUTEFORCE-0012</td><td>MEDIUM</td><td>signature</td><td>10.0.1.77</td><td>10.0.2.50</td><td>Repeated authentication pressure</td><td>Large number of SSH packets toward a server.</td></tr><tr><td>2026-04-24 09:03:40</td><td>SIG-PORTSCAN-0011</td><td>HIGH</td><td>signature</td><td>10.0.1.77</td><td>10.0.2.50</td><td>Rapid horizontal scan</td><td>Flags repeated probing behavior from a single source.</td></tr><tr><td>2026-04-24 09:03:46</td><td>ANOM-0023</td><td>CRITICAL</td><td>anomaly</td><td>10.0.1.77</td><td>10.0.2.50</td><td>Behavioral anomaly detected</td><td>bytes_out z-score 2200.00 exceeded threshold; duration_ms z-score 500.00 exceeded threshold; packets_out z-score 11.00 exceeded threshold</td></tr><tr><td>2026-04-24 09:03:46</td><td>CORR-0028</td><td>CRITICAL</td><td>correlation</td><td>10.0.1.77</td><td>multiple</td><td>Multi-stage intrusion campaign</td><td>6 alerts from the same source exceeded the campaign threshold; alert mix: anomaly=2, signature=4</td></tr><tr><td>2026-04-24 09:03:46</td><td>SIG-BRUTEFORCE-0014</td><td>MEDIUM</td><td>signature</td><td>10.0.1.77</td><td>10.0.2.50</td><td>Repeated authentication pressure</td><td>Large number of SSH packets toward a server.</td></tr><tr><td>2026-04-24 09:03:46</td><td>SIG-PORTSCAN-0013</td><td>HIGH</td><td>signature</td><td>10.0.1.77</td><td>10.0.2.50</td><td>Rapid horizontal scan</td><td>Flags repeated probing behavior from a single source.</td></tr><tr><td>2026-04-24 09:04:10</td><td>ANOM-0024</td><td>CRITICAL</td><td>anomaly</td><td>10.0.1.88</td><td>8.8.8.8</td><td>Behavioral anomaly detected</td><td>bytes_out z-score 215.00 exceeded threshold; duration_ms z-score 151.00 exceeded threshold; packets_out z-score 5.00 exceeded threshold; oversized DNS query consistent with covert channeling</td></tr><tr><td>2026-04-24 09:04:10</td><td>SIG-DNS-TUNNEL-0015</td><td>CRITICAL</td><td>signature</td><td>10.0.1.88</td><td>8.8.8.8</td><td>Suspicious DNS tunneling</td><td>Long DNS queries with outsized egress.</td></tr><tr><td>2026-04-24 09:04:55</td><td>ANOM-0025</td><td>CRITICAL</td><td>anomaly</td><td>10.0.1.90</td><td>203.0.113.10</td><td>Behavioral anomaly detected</td><td>bytes_out z-score 859.53 exceeded threshold; duration_ms z-score 31.57 exceeded threshold; packets_out z-score 1140.00 exceeded threshold; egress-heavy flow suggests possible exfiltration</td></tr><tr><td>2026-04-24 09:04:55</td><td>SIG-EXFIL-0017</td><td>CRITICAL</td><td>signature</td><td>10.0.1.90</td><td>203.0.113.10</td><td>Potential large data exfiltration</td><td>Unusually large egress transfer over HTTPS.</td></tr><tr><td>2026-04-24 09:04:55</td><td>SIG-PORTSCAN-0016</td><td>HIGH</td><td>signature</td><td>10.0.1.90</td><td>203.0.113.10</td><td>Rapid horizontal scan</td><td>Flags repeated probing behavior from a single source.</td></tr><tr><td>2026-04-24 09:05:20</td><td>ANOM-0026</td><td>CRITICAL</td><td>anomaly</td><td>10.0.1.90</td><td>203.0.113.10</td><td>Behavioral anomaly detected</td><td>bytes_out z-score 817.42 exceeded threshold; duration_ms z-score 30.86 exceeded threshold; packets_out z-score 1090.00 exceeded threshold; egress-heavy flow suggests possible exfiltration</td></tr><tr><td>2026-04-24 09:05:20</td><td>CORR-0029</td><td>CRITICAL</td><td>correlation</td><td>10.0.1.90</td><td>multiple</td><td>Multi-stage intrusion campaign</td><td>6 alerts from the same source exceeded the campaign threshold; alert mix: anomaly=2, signature=4</td></tr><tr><td>2026-04-24 09:05:20</td><td>SIG-EXFIL-0019</td><td>CRITICAL</td><td>signature</td><td>10.0.1.90</td><td>203.0.113.10</td><td>Potential large data exfiltration</td><td>Unusually large egress transfer over HTTPS.</td></tr><tr><td>2026-04-24 09:05:20</td><td>SIG-PORTSCAN-0018</td><td>HIGH</td><td>signature</td><td>10.0.1.90</td><td>203.0.113.10</td><td>Rapid horizontal scan</td><td>Flags repeated probing behavior from a single source.</td></tr></tbody>
+      </table>
+      <div class="footer">This sample project analyzes flow records rather than full packet payloads, making it lightweight and practical for baseline detection engineering.</div>
+    </section>
+  </div>
+</body>
+</html>

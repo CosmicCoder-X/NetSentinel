@@ -1,0 +1,670 @@
+{
+  "generated_at": "2026-04-24T21:13:47.537461",
+  "processed_flows": 17,
+  "severity_counts": {
+    "high": 14,
+    "medium": 2,
+    "critical": 13
+  },
+  "category_counts": {
+    "signature": 19,
+    "anomaly": 7,
+    "correlation": 3
+  },
+  "top_talkers": [
+    {
+      "src_ip": "10.0.1.90",
+      "total_bytes": 8018600
+    },
+    {
+      "src_ip": "10.0.1.13",
+      "total_bytes": 1272000
+    },
+    {
+      "src_ip": "10.0.1.10",
+      "total_bytes": 859600
+    },
+    {
+      "src_ip": "10.0.1.12",
+      "total_bytes": 93000
+    },
+    {
+      "src_ip": "10.0.1.15",
+      "total_bytes": 12000
+    }
+  ],
+  "alerts": [
+    {
+      "alert_id": "SIG-PORTSCAN-0001",
+      "timestamp": "2026-04-24T09:00:00",
+      "severity": "high",
+      "category": "signature",
+      "title": "Rapid horizontal scan",
+      "src_ip": "10.0.1.10",
+      "dst_ip": "10.0.2.20",
+      "confidence": 0.75,
+      "reasons": [
+        "Flags repeated probing behavior from a single source."
+      ],
+      "evidence": {
+        "rule_id": "SIG-PORTSCAN",
+        "protocol": "TCP",
+        "dst_port": 443,
+        "bytes_out": 12500,
+        "packets_out": 18
+      }
+    },
+    {
+      "alert_id": "SIG-PORTSCAN-0002",
+      "timestamp": "2026-04-24T09:00:41",
+      "severity": "high",
+      "category": "signature",
+      "title": "Rapid horizontal scan",
+      "src_ip": "10.0.1.12",
+      "dst_ip": "10.0.2.22",
+      "confidence": 0.75,
+      "reasons": [
+        "Flags repeated probing behavior from a single source."
+      ],
+      "evidence": {
+        "rule_id": "SIG-PORTSCAN",
+        "protocol": "TCP",
+        "dst_port": 80,
+        "bytes_out": 1800,
+        "packets_out": 10
+      }
+    },
+    {
+      "alert_id": "SIG-PORTSCAN-0003",
+      "timestamp": "2026-04-24T09:01:05",
+      "severity": "high",
+      "category": "signature",
+      "title": "Rapid horizontal scan",
+      "src_ip": "10.0.1.10",
+      "dst_ip": "10.0.2.30",
+      "confidence": 0.75,
+      "reasons": [
+        "Flags repeated probing behavior from a single source."
+      ],
+      "evidence": {
+        "rule_id": "SIG-PORTSCAN",
+        "protocol": "TCP",
+        "dst_port": 445,
+        "bytes_out": 900,
+        "packets_out": 4
+      }
+    },
+    {
+      "alert_id": "SIG-PORTSCAN-0004",
+      "timestamp": "2026-04-24T09:01:23",
+      "severity": "high",
+      "category": "signature",
+      "title": "Rapid horizontal scan",
+      "src_ip": "10.0.1.14",
+      "dst_ip": "10.0.2.44",
+      "confidence": 0.75,
+      "reasons": [
+        "Flags repeated probing behavior from a single source."
+      ],
+      "evidence": {
+        "rule_id": "SIG-PORTSCAN",
+        "protocol": "TCP",
+        "dst_port": 22,
+        "bytes_out": 1400,
+        "packets_out": 14
+      }
+    },
+    {
+      "alert_id": "SIG-PORTSCAN-0005",
+      "timestamp": "2026-04-24T09:01:50",
+      "severity": "high",
+      "category": "signature",
+      "title": "Rapid horizontal scan",
+      "src_ip": "10.0.1.13",
+      "dst_ip": "10.0.2.25",
+      "confidence": 0.75,
+      "reasons": [
+        "Flags repeated probing behavior from a single source."
+      ],
+      "evidence": {
+        "rule_id": "SIG-PORTSCAN",
+        "protocol": "TCP",
+        "dst_port": 443,
+        "bytes_out": 22000,
+        "packets_out": 22
+      }
+    },
+    {
+      "alert_id": "SIG-PORTSCAN-0006",
+      "timestamp": "2026-04-24T09:02:17",
+      "severity": "high",
+      "category": "signature",
+      "title": "Rapid horizontal scan",
+      "src_ip": "10.0.1.15",
+      "dst_ip": "10.0.2.26",
+      "confidence": 0.75,
+      "reasons": [
+        "Flags repeated probing behavior from a single source."
+      ],
+      "evidence": {
+        "rule_id": "SIG-PORTSCAN",
+        "protocol": "TCP",
+        "dst_port": 3389,
+        "bytes_out": 4000,
+        "packets_out": 12
+      }
+    },
+    {
+      "alert_id": "SIG-PORTSCAN-0007",
+      "timestamp": "2026-04-24T09:03:08",
+      "severity": "high",
+      "category": "signature",
+      "title": "Rapid horizontal scan",
+      "src_ip": "172.16.5.99",
+      "dst_ip": "10.0.2.100",
+      "confidence": 0.75,
+      "reasons": [
+        "Flags repeated probing behavior from a single source."
+      ],
+      "evidence": {
+        "rule_id": "SIG-PORTSCAN",
+        "protocol": "TCP",
+        "dst_port": 21,
+        "bytes_out": 700,
+        "packets_out": 4
+      }
+    },
+    {
+      "alert_id": "ANOM-0020",
+      "timestamp": "2026-04-24T09:03:10",
+      "severity": "critical",
+      "category": "anomaly",
+      "title": "Behavioral anomaly detected",
+      "src_ip": "172.16.5.99",
+      "dst_ip": "10.0.2.101",
+      "confidence": 0.95,
+      "reasons": [
+        "bytes_out z-score 680.00 exceeded threshold",
+        "duration_ms z-score 1675.00 exceeded threshold",
+        "packets_out z-score 10.00 exceeded threshold"
+      ],
+      "evidence": {
+        "bytes_out_zscore": 680.0,
+        "duration_ms_zscore": 1675.0,
+        "packets_out_zscore": 10.0,
+        "protocol": "TCP",
+        "dst_port": 22,
+        "bytes_out": 720,
+        "bytes_in": 0
+      }
+    },
+    {
+      "alert_id": "SIG-PORTSCAN-0008",
+      "timestamp": "2026-04-24T09:03:10",
+      "severity": "high",
+      "category": "signature",
+      "title": "Rapid horizontal scan",
+      "src_ip": "172.16.5.99",
+      "dst_ip": "10.0.2.101",
+      "confidence": 0.75,
+      "reasons": [
+        "Flags repeated probing behavior from a single source."
+      ],
+      "evidence": {
+        "rule_id": "SIG-PORTSCAN",
+        "protocol": "TCP",
+        "dst_port": 22,
+        "bytes_out": 720,
+        "packets_out": 4
+      }
+    },
+    {
+      "alert_id": "SIG-PORTSCAN-0009",
+      "timestamp": "2026-04-24T09:03:12",
+      "severity": "high",
+      "category": "signature",
+      "title": "Rapid horizontal scan",
+      "src_ip": "172.16.5.99",
+      "dst_ip": "10.0.2.102",
+      "confidence": 0.75,
+      "reasons": [
+        "Flags repeated probing behavior from a single source."
+      ],
+      "evidence": {
+        "rule_id": "SIG-PORTSCAN",
+        "protocol": "TCP",
+        "dst_port": 23,
+        "bytes_out": 690,
+        "packets_out": 4
+      }
+    },
+    {
+      "alert_id": "ANOM-0021",
+      "timestamp": "2026-04-24T09:03:16",
+      "severity": "critical",
+      "category": "anomaly",
+      "title": "Behavioral anomaly detected",
+      "src_ip": "172.16.5.99",
+      "dst_ip": "10.0.2.103",
+      "confidence": 0.95,
+      "reasons": [
+        "bytes_out z-score 220.00 exceeded threshold",
+        "duration_ms z-score 180.00 exceeded threshold",
+        "source touched at least 4 distinct destination ports"
+      ],
+      "evidence": {
+        "bytes_out_zscore": 220.0,
+        "duration_ms_zscore": 180.0,
+        "distinct_dst_ports": 4,
+        "protocol": "TCP",
+        "dst_port": 445,
+        "bytes_out": 680,
+        "bytes_in": 0
+      }
+    },
+    {
+      "alert_id": "CORR-0027",
+      "timestamp": "2026-04-24T09:03:16",
+      "severity": "critical",
+      "category": "correlation",
+      "title": "Multi-stage intrusion campaign",
+      "src_ip": "172.16.5.99",
+      "dst_ip": "multiple",
+      "confidence": 0.98,
+      "reasons": [
+        "6 alerts from the same source exceeded the campaign threshold",
+        "alert mix: anomaly=2, signature=4"
+      ],
+      "evidence": {
+        "first_seen": "2026-04-24T09:03:08",
+        "last_seen": "2026-04-24T09:03:16",
+        "related_alert_ids": [
+          "SIG-PORTSCAN-0007",
+          "SIG-PORTSCAN-0008",
+          "ANOM-0020",
+          "SIG-PORTSCAN-0009",
+          "SIG-PORTSCAN-0010",
+          "ANOM-0021"
+        ]
+      }
+    },
+    {
+      "alert_id": "SIG-PORTSCAN-0010",
+      "timestamp": "2026-04-24T09:03:16",
+      "severity": "high",
+      "category": "signature",
+      "title": "Rapid horizontal scan",
+      "src_ip": "172.16.5.99",
+      "dst_ip": "10.0.2.103",
+      "confidence": 0.75,
+      "reasons": [
+        "Flags repeated probing behavior from a single source."
+      ],
+      "evidence": {
+        "rule_id": "SIG-PORTSCAN",
+        "protocol": "TCP",
+        "dst_port": 445,
+        "bytes_out": 680,
+        "packets_out": 4
+      }
+    },
+    {
+      "alert_id": "ANOM-0022",
+      "timestamp": "2026-04-24T09:03:40",
+      "severity": "critical",
+      "category": "anomaly",
+      "title": "Behavioral anomaly detected",
+      "src_ip": "10.0.1.77",
+      "dst_ip": "10.0.2.50",
+      "confidence": 0.95,
+      "reasons": [
+        "bytes_out z-score 2100.00 exceeded threshold",
+        "duration_ms z-score 400.00 exceeded threshold",
+        "packets_out z-score 10.00 exceeded threshold"
+      ],
+      "evidence": {
+        "bytes_out_zscore": 2100.0,
+        "duration_ms_zscore": 400.0,
+        "packets_out_zscore": 10.0,
+        "protocol": "TCP",
+        "dst_port": 22,
+        "bytes_out": 3500,
+        "bytes_in": 900
+      }
+    },
+    {
+      "alert_id": "SIG-BRUTEFORCE-0012",
+      "timestamp": "2026-04-24T09:03:40",
+      "severity": "medium",
+      "category": "signature",
+      "title": "Repeated authentication pressure",
+      "src_ip": "10.0.1.77",
+      "dst_ip": "10.0.2.50",
+      "confidence": 0.55,
+      "reasons": [
+        "Large number of SSH packets toward a server."
+      ],
+      "evidence": {
+        "rule_id": "SIG-BRUTEFORCE",
+        "protocol": "TCP",
+        "dst_port": 22,
+        "bytes_out": 3500,
+        "packets_out": 24
+      }
+    },
+    {
+      "alert_id": "SIG-PORTSCAN-0011",
+      "timestamp": "2026-04-24T09:03:40",
+      "severity": "high",
+      "category": "signature",
+      "title": "Rapid horizontal scan",
+      "src_ip": "10.0.1.77",
+      "dst_ip": "10.0.2.50",
+      "confidence": 0.75,
+      "reasons": [
+        "Flags repeated probing behavior from a single source."
+      ],
+      "evidence": {
+        "rule_id": "SIG-PORTSCAN",
+        "protocol": "TCP",
+        "dst_port": 22,
+        "bytes_out": 3500,
+        "packets_out": 24
+      }
+    },
+    {
+      "alert_id": "ANOM-0023",
+      "timestamp": "2026-04-24T09:03:46",
+      "severity": "critical",
+      "category": "anomaly",
+      "title": "Behavioral anomaly detected",
+      "src_ip": "10.0.1.77",
+      "dst_ip": "10.0.2.50",
+      "confidence": 0.95,
+      "reasons": [
+        "bytes_out z-score 2200.00 exceeded threshold",
+        "duration_ms z-score 500.00 exceeded threshold",
+        "packets_out z-score 11.00 exceeded threshold"
+      ],
+      "evidence": {
+        "bytes_out_zscore": 2200.0,
+        "duration_ms_zscore": 500.0,
+        "packets_out_zscore": 11.0,
+        "protocol": "TCP",
+        "dst_port": 22,
+        "bytes_out": 3600,
+        "bytes_in": 850
+      }
+    },
+    {
+      "alert_id": "CORR-0028",
+      "timestamp": "2026-04-24T09:03:46",
+      "severity": "critical",
+      "category": "correlation",
+      "title": "Multi-stage intrusion campaign",
+      "src_ip": "10.0.1.77",
+      "dst_ip": "multiple",
+      "confidence": 0.98,
+      "reasons": [
+        "6 alerts from the same source exceeded the campaign threshold",
+        "alert mix: anomaly=2, signature=4"
+      ],
+      "evidence": {
+        "first_seen": "2026-04-24T09:03:40",
+        "last_seen": "2026-04-24T09:03:46",
+        "related_alert_ids": [
+          "SIG-PORTSCAN-0011",
+          "SIG-BRUTEFORCE-0012",
+          "ANOM-0022",
+          "SIG-PORTSCAN-0013",
+          "SIG-BRUTEFORCE-0014",
+          "ANOM-0023"
+        ]
+      }
+    },
+    {
+      "alert_id": "SIG-BRUTEFORCE-0014",
+      "timestamp": "2026-04-24T09:03:46",
+      "severity": "medium",
+      "category": "signature",
+      "title": "Repeated authentication pressure",
+      "src_ip": "10.0.1.77",
+      "dst_ip": "10.0.2.50",
+      "confidence": 0.55,
+      "reasons": [
+        "Large number of SSH packets toward a server."
+      ],
+      "evidence": {
+        "rule_id": "SIG-BRUTEFORCE",
+        "protocol": "TCP",
+        "dst_port": 22,
+        "bytes_out": 3600,
+        "packets_out": 25
+      }
+    },
+    {
+      "alert_id": "SIG-PORTSCAN-0013",
+      "timestamp": "2026-04-24T09:03:46",
+      "severity": "high",
+      "category": "signature",
+      "title": "Rapid horizontal scan",
+      "src_ip": "10.0.1.77",
+      "dst_ip": "10.0.2.50",
+      "confidence": 0.75,
+      "reasons": [
+        "Flags repeated probing behavior from a single source."
+      ],
+      "evidence": {
+        "rule_id": "SIG-PORTSCAN",
+        "protocol": "TCP",
+        "dst_port": 22,
+        "bytes_out": 3600,
+        "packets_out": 25
+      }
+    },
+    {
+      "alert_id": "ANOM-0024",
+      "timestamp": "2026-04-24T09:04:10",
+      "severity": "critical",
+      "category": "anomaly",
+      "title": "Behavioral anomaly detected",
+      "src_ip": "10.0.1.88",
+      "dst_ip": "8.8.8.8",
+      "confidence": 0.95,
+      "reasons": [
+        "bytes_out z-score 215.00 exceeded threshold",
+        "duration_ms z-score 151.00 exceeded threshold",
+        "packets_out z-score 5.00 exceeded threshold",
+        "oversized DNS query consistent with covert channeling"
+      ],
+      "evidence": {
+        "bytes_out_zscore": 215.0,
+        "duration_ms_zscore": 151.0,
+        "packets_out_zscore": 5.0,
+        "dns_query_length": 44,
+        "protocol": "UDP",
+        "dst_port": 53,
+        "bytes_out": 1200,
+        "bytes_in": 150
+      }
+    },
+    {
+      "alert_id": "SIG-DNS-TUNNEL-0015",
+      "timestamp": "2026-04-24T09:04:10",
+      "severity": "critical",
+      "category": "signature",
+      "title": "Suspicious DNS tunneling",
+      "src_ip": "10.0.1.88",
+      "dst_ip": "8.8.8.8",
+      "confidence": 0.92,
+      "reasons": [
+        "Long DNS queries with outsized egress."
+      ],
+      "evidence": {
+        "rule_id": "SIG-DNS-TUNNEL",
+        "protocol": "UDP",
+        "dst_port": 53,
+        "bytes_out": 1200,
+        "packets_out": 7
+      }
+    },
+    {
+      "alert_id": "ANOM-0025",
+      "timestamp": "2026-04-24T09:04:55",
+      "severity": "critical",
+      "category": "anomaly",
+      "title": "Behavioral anomaly detected",
+      "src_ip": "10.0.1.90",
+      "dst_ip": "203.0.113.10",
+      "confidence": 0.95,
+      "reasons": [
+        "bytes_out z-score 859.53 exceeded threshold",
+        "duration_ms z-score 31.57 exceeded threshold",
+        "packets_out z-score 1140.00 exceeded threshold",
+        "egress-heavy flow suggests possible exfiltration"
+      ],
+      "evidence": {
+        "bytes_out_zscore": 859.53,
+        "duration_ms_zscore": 31.57,
+        "packets_out_zscore": 1140.0,
+        "egress_ratio": 436.17,
+        "protocol": "TCP",
+        "dst_port": 443,
+        "bytes_out": 4100000,
+        "bytes_in": 9400
+      }
+    },
+    {
+      "alert_id": "SIG-EXFIL-0017",
+      "timestamp": "2026-04-24T09:04:55",
+      "severity": "critical",
+      "category": "signature",
+      "title": "Potential large data exfiltration",
+      "src_ip": "10.0.1.90",
+      "dst_ip": "203.0.113.10",
+      "confidence": 0.92,
+      "reasons": [
+        "Unusually large egress transfer over HTTPS."
+      ],
+      "evidence": {
+        "rule_id": "SIG-EXFIL",
+        "protocol": "TCP",
+        "dst_port": 443,
+        "bytes_out": 4100000,
+        "packets_out": 2300
+      }
+    },
+    {
+      "alert_id": "SIG-PORTSCAN-0016",
+      "timestamp": "2026-04-24T09:04:55",
+      "severity": "high",
+      "category": "signature",
+      "title": "Rapid horizontal scan",
+      "src_ip": "10.0.1.90",
+      "dst_ip": "203.0.113.10",
+      "confidence": 0.75,
+      "reasons": [
+        "Flags repeated probing behavior from a single source."
+      ],
+      "evidence": {
+        "rule_id": "SIG-PORTSCAN",
+        "protocol": "TCP",
+        "dst_port": 443,
+        "bytes_out": 4100000,
+        "packets_out": 2300
+      }
+    },
+    {
+      "alert_id": "ANOM-0026",
+      "timestamp": "2026-04-24T09:05:20",
+      "severity": "critical",
+      "category": "anomaly",
+      "title": "Behavioral anomaly detected",
+      "src_ip": "10.0.1.90",
+      "dst_ip": "203.0.113.10",
+      "confidence": 0.95,
+      "reasons": [
+        "bytes_out z-score 817.42 exceeded threshold",
+        "duration_ms z-score 30.86 exceeded threshold",
+        "packets_out z-score 1090.00 exceeded threshold",
+        "egress-heavy flow suggests possible exfiltration"
+      ],
+      "evidence": {
+        "bytes_out_zscore": 817.42,
+        "duration_ms_zscore": 30.86,
+        "packets_out_zscore": 1090.0,
+        "egress_ratio": 423.91,
+        "protocol": "TCP",
+        "dst_port": 443,
+        "bytes_out": 3900000,
+        "bytes_in": 9200
+      }
+    },
+    {
+      "alert_id": "CORR-0029",
+      "timestamp": "2026-04-24T09:05:20",
+      "severity": "critical",
+      "category": "correlation",
+      "title": "Multi-stage intrusion campaign",
+      "src_ip": "10.0.1.90",
+      "dst_ip": "multiple",
+      "confidence": 0.98,
+      "reasons": [
+        "6 alerts from the same source exceeded the campaign threshold",
+        "alert mix: anomaly=2, signature=4"
+      ],
+      "evidence": {
+        "first_seen": "2026-04-24T09:04:55",
+        "last_seen": "2026-04-24T09:05:20",
+        "related_alert_ids": [
+          "SIG-PORTSCAN-0016",
+          "SIG-EXFIL-0017",
+          "ANOM-0025",
+          "SIG-PORTSCAN-0018",
+          "SIG-EXFIL-0019",
+          "ANOM-0026"
+        ]
+      }
+    },
+    {
+      "alert_id": "SIG-EXFIL-0019",
+      "timestamp": "2026-04-24T09:05:20",
+      "severity": "critical",
+      "category": "signature",
+      "title": "Potential large data exfiltration",
+      "src_ip": "10.0.1.90",
+      "dst_ip": "203.0.113.10",
+      "confidence": 0.92,
+      "reasons": [
+        "Unusually large egress transfer over HTTPS."
+      ],
+      "evidence": {
+        "rule_id": "SIG-EXFIL",
+        "protocol": "TCP",
+        "dst_port": 443,
+        "bytes_out": 3900000,
+        "packets_out": 2200
+      }
+    },
+    {
+      "alert_id": "SIG-PORTSCAN-0018",
+      "timestamp": "2026-04-24T09:05:20",
+      "severity": "high",
+      "category": "signature",
+      "title": "Rapid horizontal scan",
+      "src_ip": "10.0.1.90",
+      "dst_ip": "203.0.113.10",
+      "confidence": 0.75,
+      "reasons": [
+        "Flags repeated probing behavior from a single source."
+      ],
+      "evidence": {
+        "rule_id": "SIG-PORTSCAN",
+        "protocol": "TCP",
+        "dst_port": 443,
+        "bytes_out": 3900000,
+        "packets_out": 2200
+      }
+    }
+  ]
+}

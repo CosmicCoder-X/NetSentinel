@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>NIDS Report</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --panel-alt: #172033;
+      --text: #e5eef9;
+      --muted: #98a7c2;
+      --accent: #f97316;
+      --danger: #ef4444;
+      --ok: #22c55e;
+      --line: rgba(148, 163, 184, 0.16);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(249, 115, 22, 0.18), transparent 26%),
+        linear-gradient(180deg, #020617 0%, var(--bg) 100%);
+      color: var(--text);
+    }
+    .wrap { width: min(1180px, calc(100% - 32px)); margin: 32px auto; }
+    .hero {
+      background: linear-gradient(135deg, rgba(249,115,22,0.18), rgba(17,24,39,0.92));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    .hero h1 { margin: 0 0 8px; font-size: 32px; }
+    .hero p { margin: 0; color: var(--muted); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .card, .panel {
+      background: rgba(17, 24, 39, 0.82);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+    }
+    .card span { display: block; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .card strong { display: block; margin-top: 12px; font-size: 30px; }
+    .two-up {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    ul { list-style: none; margin: 0; padding: 0; }
+    li {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+    }
+    table { width: 100%; border-collapse: collapse; }
+    th, td {
+      text-align: left;
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      font-size: 14px;
+    }
+    th { color: var(--muted); font-weight: 600; }
+    .footer { color: var(--muted); font-size: 13px; margin-top: 18px; }
+    @media (max-width: 900px) {
+      .two-up { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>Network Intrusion Detection Report</h1>
+      <p>Generated 2026-04-24 21:47:54 with layered signature, anomaly, and campaign correlation analytics.</p>
+    </section>
+    <section class="grid"><div class='card'><span>Flows Processed</span><strong>31</strong></div><div class='card'><span>Alerts Raised</span><strong>51</strong></div><div class='card'><span>Critical Alerts</span><strong>20</strong></div><div class='card'><span>Protocols Seen</span><strong>13</strong></div></section>
+    <section class="two-up">
+      <div class="panel">
+        <h2>Top Talkers</h2>
+        <ul><li><strong>10.0.1.90</strong><span>8,018,600 bytes</span></li><li><strong>10.0.1.13</strong><span>1,272,000 bytes</span></li><li><strong>10.0.1.10</strong><span>857,500 bytes</span></li><li><strong>10.0.1.66</strong><span>841,500 bytes</span></li><li><strong>10.0.1.12</strong><span>93,000 bytes</span></li></ul>
+      </div>
+      <div class="panel">
+        <h2>Alert Distribution</h2>
+        <ul>
+          <li><strong>Severity</strong><span>{"critical": 20, "high": 24, "medium": 7}</span></li>
+          <li><strong>Category</strong><span>{"signature": 13, "anomaly": 14, "protocol": 18, "correlation": 6}</span></li>
+          <li><strong>Protocols</strong><span>{"https": 4, "dns": 2, "http": 2, "rdp": 2, "smb": 3, "ldap": 2, "dhcp": 2, "icmp": 5, "ntp": 2, "ftp": 1, "ssh": 4, "telnet": 1, "smtp": 1}</span></li>
+        </ul>
+      </div>
+    </section>
+    <section class="panel">
+      <h2>Alert Timeline</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>ID</th>
+            <th>Severity</th>
+            <th>Confidence</th>
+            <th>Category</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Title</th>
+            <th>Reasons</th>
+          </tr>
+        </thead>
+        <tbody><tr><td>2026-04-24 09:02:10</td><td>ANOM-0014</td><td>CRITICAL</td><td>0.99</td><td>anomaly</td><td>198.51.100.44</td><td>10.0.2.22</td><td>Behavioral anomaly detected</td><td>bytes_out z-score 1200.00 exceeded threshold; duration_ms z-score 900.00 exceeded threshold; packets_out z-score 4.00 exceeded threshold</td></tr><tr><td>2026-04-24 09:02:10</td><td>PROTO-0028</td><td>HIGH</td><td>0.95</td><td>protocol</td><td>198.51.100.44</td><td>10.0.2.22</td><td>Protocol-aware threat indicator</td><td>URI contains exploit-like payload markers; user agent is commonly used by scanners or automation</td></tr><tr><td>2026-04-24 09:02:24</td><td>ANOM-0015</td><td>CRITICAL</td><td>0.95</td><td>anomaly</td><td>10.0.1.88</td><td>8.8.8.8</td><td>Behavioral anomaly detected</td><td>bytes_out z-score 1080.00 exceeded threshold; duration_ms z-score 150.00 exceeded threshold; packets_out z-score 5.00 exceeded threshold; oversized DNS query consistent with covert channeling</td></tr><tr><td>2026-04-24 09:02:24</td><td>CORR-0046</td><td>CRITICAL</td><td>0.84</td><td>correlation</td><td>10.0.1.88</td><td>multiple</td><td>Multi-stage intrusion campaign</td><td>3 alerts from the same source exceeded the campaign threshold; alert mix: anomaly=1, protocol=1, signature=1</td></tr><tr><td>2026-04-24 09:02:24</td><td>PROTO-0029</td><td>HIGH</td><td>0.81</td><td>protocol</td><td>10.0.1.88</td><td>8.8.8.8</td><td>Protocol-aware threat indicator</td><td>internal host queried a DNS server outside the approved resolver set; DNS query contains an unusually long label</td></tr><tr><td>2026-04-24 09:02:24</td><td>SIG-DNS-TUNNEL-0001</td><td>CRITICAL</td><td>0.92</td><td>signature</td><td>10.0.1.88</td><td>8.8.8.8</td><td>Suspicious DNS tunneling</td><td>Long DNS queries with outsized egress.</td></tr><tr><td>2026-04-24 09:02:40</td><td>ANOM-0016</td><td>CRITICAL</td><td>0.95</td><td>anomaly</td><td>10.0.1.90</td><td>203.0.113.10</td><td>Behavioral anomaly detected</td><td>bytes_out z-score 859.53 exceeded threshold; duration_ms z-score 31.57 exceeded threshold; packets_out z-score 1140.00 exceeded threshold; egress-heavy flow suggests possible exfiltration</td></tr><tr><td>2026-04-24 09:02:40</td><td>PROTO-0030</td><td>HIGH</td><td>0.81</td><td>protocol</td><td>10.0.1.90</td><td>203.0.113.10</td><td>Protocol-aware threat indicator</td><td>JA3 fingerprint matches configured threat profile; large outbound TLS flow has no SNI for attribution</td></tr><tr><td>2026-04-24 09:02:40</td><td>SIG-HTTPS-EXFIL-0002</td><td>CRITICAL</td><td>0.92</td><td>signature</td><td>10.0.1.90</td><td>203.0.113.10</td><td>Potential large HTTPS data exfiltration</td><td>Unusually large outbound transfer over HTTPS.</td></tr><tr><td>2026-04-24 09:02:55</td><td>ANOM-0017</td><td>CRITICAL</td><td>0.95</td><td>anomaly</td><td>10.0.1.90</td><td>203.0.113.10</td><td>Behavioral anomaly detected</td><td>bytes_out z-score 817.42 exceeded threshold; duration_ms z-score 30.86 exceeded threshold; packets_out z-score 1090.00 exceeded threshold; egress-heavy flow suggests possible exfiltration</td></tr><tr><td>2026-04-24 09:02:55</td><td>CORR-0047</td><td>CRITICAL</td><td>0.98</td><td>correlation</td><td>10.0.1.90</td><td>multiple</td><td>Multi-stage intrusion campaign</td><td>6 alerts from the same source exceeded the campaign threshold; alert mix: anomaly=2, protocol=2, signature=2</td></tr><tr><td>2026-04-24 09:02:55</td><td>PROTO-0031</td><td>HIGH</td><td>0.81</td><td>protocol</td><td>10.0.1.90</td><td>203.0.113.10</td><td>Protocol-aware threat indicator</td><td>JA3 fingerprint matches configured threat profile; large outbound TLS flow has no SNI for attribution</td></tr><tr><td>2026-04-24 09:02:55</td><td>SIG-HTTPS-EXFIL-0003</td><td>CRITICAL</td><td>0.92</td><td>signature</td><td>10.0.1.90</td><td>203.0.113.10</td><td>Potential large HTTPS data exfiltration</td><td>Unusually large outbound transfer over HTTPS.</td></tr><tr><td>2026-04-24 09:03:10</td><td>SIG-PORTSCAN-0004</td><td>HIGH</td><td>0.93</td><td>signature</td><td>172.16.5.99</td><td>10.0.2.100</td><td>Rapid horizontal scan</td><td>Flags repeated probing behavior from a single source.</td></tr><tr><td>2026-04-24 09:03:12</td><td>SIG-PORTSCAN-0005</td><td>HIGH</td><td>0.75</td><td>signature</td><td>172.16.5.99</td><td>10.0.2.101</td><td>Rapid horizontal scan</td><td>Flags repeated probing behavior from a single source.</td></tr><tr><td>2026-04-24 09:03:14</td><td>SIG-PORTSCAN-0006</td><td>HIGH</td><td>0.75</td><td>signature</td><td>172.16.5.99</td><td>10.0.2.102</td><td>Rapid horizontal scan</td><td>Flags repeated probing behavior from a single source.</td></tr><tr><td>2026-04-24 09:03:16</td><td>ANOM-0018</td><td>CRITICAL</td><td>0.95</td><td>anomaly</td><td>172.16.5.99</td><td>10.0.2.103</td><td>Behavioral anomaly detected</td><td>bytes_out z-score 4420.00 exceeded threshold; duration_ms z-score 1780.00 exceeded threshold; packets_out z-score 14.00 exceeded threshold; source touched at least 4 distinct destination ports</td></tr><tr><td>2026-04-24 09:03:16</td><td>PROTO-0032</td><td>HIGH</td><td>0.78</td><td>protocol</td><td>172.16.5.99</td><td>10.0.2.103</td><td>Protocol-aware threat indicator</td><td>SMB flow referenced an administrative share</td></tr><tr><td>2026-04-24 09:03:16</td><td>SIG-PORTSCAN-0007</td><td>HIGH</td><td>0.75</td><td>signature</td><td>172.16.5.99</td><td>10.0.2.103</td><td>Rapid horizontal scan</td><td>Flags repeated probing behavior from a single source.</td></tr><tr><td>2026-04-24 09:03:18</td><td>ANOM-0019</td><td>CRITICAL</td><td>0.95</td><td>anomaly</td><td>172.16.5.99</td><td>10.0.2.104</td><td>Behavioral anomaly detected</td><td>bytes_out z-score 3240.00 exceeded threshold; duration_ms z-score 1260.00 exceeded threshold; packets_out z-score 8.00 exceeded threshold; source touched at least 4 distinct destination ports</td></tr><tr><td>2026-04-24 09:03:18</td><td>CORR-0048</td><td>CRITICAL</td><td>0.98</td><td>correlation</td><td>172.16.5.99</td><td>multiple</td><td>Multi-stage intrusion campaign</td><td>9 alerts from the same source exceeded the campaign threshold; alert mix: anomaly=2, protocol=2, signature=5</td></tr><tr><td>2026-04-24 09:03:18</td><td>PROTO-0033</td><td>HIGH</td><td>0.82</td><td>protocol</td><td>172.16.5.99</td><td>10.0.2.104</td><td>Protocol-aware threat indicator</td><td>source contacted many distinct internal services</td></tr><tr><td>2026-04-24 09:03:18</td><td>SIG-PORTSCAN-0008</td><td>HIGH</td><td>0.75</td><td>signature</td><td>172.16.5.99</td><td>10.0.2.104</td><td>Rapid horizontal scan</td><td>Flags repeated probing behavior from a single source.</td></tr><tr><td>2026-04-24 09:03:35</td><td>PROTO-0034</td><td>HIGH</td><td>0.97</td><td>protocol</td><td>10.0.1.77</td><td>10.0.2.50</td><td>Protocol-aware threat indicator</td><td>failed SSH flow carried elevated packet volume</td></tr><tr><td>2026-04-24 09:03:35</td><td>SIG-SSH-BRUTEFORCE-0009</td><td>HIGH</td><td>0.93</td><td>signature</td><td>10.0.1.77</td><td>10.0.2.50</td><td>Repeated SSH authentication pressure</td><td>Large failed SSH flow toward a protected server.</td></tr><tr><td>2026-04-24 09:03:41</td><td>PROTO-0035</td><td>HIGH</td><td>0.97</td><td>protocol</td><td>10.0.1.77</td><td>10.0.2.50</td><td>Protocol-aware threat indicator</td><td>failed SSH flow carried elevated packet volume</td></tr><tr><td>2026-04-24 09:03:41</td><td>SIG-SSH-BRUTEFORCE-0010</td><td>HIGH</td><td>0.93</td><td>signature</td><td>10.0.1.77</td><td>10.0.2.50</td><td>Repeated SSH authentication pressure</td><td>Large failed SSH flow toward a protected server.</td></tr><tr><td>2026-04-24 09:03:47</td><td>CORR-0049</td><td>HIGH</td><td>0.98</td><td>correlation</td><td>10.0.1.77</td><td>multiple</td><td>Multi-stage intrusion campaign</td><td>6 alerts from the same source exceeded the campaign threshold; alert mix: protocol=3, signature=3</td></tr><tr><td>2026-04-24 09:03:47</td><td>PROTO-0036</td><td>HIGH</td><td>0.99</td><td>protocol</td><td>10.0.1.77</td><td>10.0.2.50</td><td>Protocol-aware threat indicator</td><td>failed SSH flow carried elevated packet volume; multiple failed logins against the same service</td></tr><tr><td>2026-04-24 09:03:47</td><td>SIG-SSH-BRUTEFORCE-0011</td><td>HIGH</td><td>0.93</td><td>signature</td><td>10.0.1.77</td><td>10.0.2.50</td><td>Repeated SSH authentication pressure</td><td>Large failed SSH flow toward a protected server.</td></tr><tr><td>2026-04-24 09:04:05</td><td>ANOM-0020</td><td>CRITICAL</td><td>0.99</td><td>anomaly</td><td>203.0.113.99</td><td>10.0.2.100</td><td>Behavioral anomaly detected</td><td>bytes_out z-score 2500.00 exceeded threshold; duration_ms z-score 1400.00 exceeded threshold; packets_out z-score 6.00 exceeded threshold</td></tr><tr><td>2026-04-24 09:04:05</td><td>PROTO-0037</td><td>CRITICAL</td><td>0.99</td><td>protocol</td><td>203.0.113.99</td><td>10.0.2.100</td><td>Protocol-aware threat indicator</td><td>external source attempted SMB access to an internal host; SMB flow referenced an administrative share</td></tr><tr><td>2026-04-24 09:04:18</td><td>ANOM-0021</td><td>CRITICAL</td><td>0.95</td><td>anomaly</td><td>10.0.1.55</td><td>10.0.2.31</td><td>Behavioral anomaly detected</td><td>bytes_out z-score 896.00 exceeded threshold; duration_ms z-score 70.00 exceeded threshold; packets_out z-score 21.00 exceeded threshold</td></tr><tr><td>2026-04-24 09:04:18</td><td>PROTO-0038</td><td>MEDIUM</td><td>0.63</td><td>protocol</td><td>10.0.1.55</td><td>10.0.2.31</td><td>Protocol-aware threat indicator</td><td>high-volume echo traffic may indicate reconnaissance or tunneling</td></tr><tr><td>2026-04-24 09:04:20</td><td>ANOM-0022</td><td>CRITICAL</td><td>0.95</td><td>anomaly</td><td>10.0.1.55</td><td>10.0.2.32</td><td>Behavioral anomaly detected</td><td>bytes_out z-score 896.00 exceeded threshold; duration_ms z-score 70.00 exceeded threshold; packets_out z-score 21.00 exceeded threshold</td></tr><tr><td>2026-04-24 09:04:20</td><td>PROTO-0039</td><td>MEDIUM</td><td>0.63</td><td>protocol</td><td>10.0.1.55</td><td>10.0.2.32</td><td>Protocol-aware threat indicator</td><td>high-volume echo traffic may indicate reconnaissance or tunneling</td></tr><tr><td>2026-04-24 09:04:22</td><td>ANOM-0023</td><td>CRITICAL</td><td>0.95</td><td>anomaly</td><td>10.0.1.55</td><td>10.0.2.33</td><td>Behavioral anomaly detected</td><td>bytes_out z-score 896.00 exceeded threshold; duration_ms z-score 70.00 exceeded threshold; packets_out z-score 21.00 exceeded threshold</td></tr><tr><td>2026-04-24 09:04:22</td><td>PROTO-0040</td><td>MEDIUM</td><td>0.63</td><td>protocol</td><td>10.0.1.55</td><td>10.0.2.33</td><td>Protocol-aware threat indicator</td><td>high-volume echo traffic may indicate reconnaissance or tunneling</td></tr><tr><td>2026-04-24 09:04:24</td><td>ANOM-0024</td><td>CRITICAL</td><td>0.95</td><td>anomaly</td><td>10.0.1.55</td><td>10.0.2.34</td><td>Behavioral anomaly detected</td><td>bytes_out z-score 896.00 exceeded threshold; duration_ms z-score 70.00 exceeded threshold; packets_out z-score 21.00 exceeded threshold</td></tr><tr><td>2026-04-24 09:04:24</td><td>CORR-0051</td><td>CRITICAL</td><td>0.98</td><td>correlation</td><td>10.0.1.55</td><td>multiple</td><td>Multi-stage intrusion campaign</td><td>8 alerts from the same source exceeded the campaign threshold; alert mix: anomaly=4, protocol=4</td></tr><tr><td>2026-04-24 09:04:24</td><td>PROTO-0041</td><td>MEDIUM</td><td>0.71</td><td>protocol</td><td>10.0.1.55</td><td>10.0.2.34</td><td>Protocol-aware threat indicator</td><td>high-volume echo traffic may indicate reconnaissance or tunneling; echo requests touched many hosts</td></tr><tr><td>2026-04-24 09:04:40</td><td>ANOM-0025</td><td>MEDIUM</td><td>0.64</td><td>anomaly</td><td>10.0.7.200</td><td>255.255.255.255</td><td>Behavioral anomaly detected</td><td>duration_ms z-score 40.00 exceeded threshold</td></tr><tr><td>2026-04-24 09:04:40</td><td>PROTO-0042</td><td>CRITICAL</td><td>0.92</td><td>protocol</td><td>10.0.7.200</td><td>255.255.255.255</td><td>Protocol-aware threat indicator</td><td>DHCP offer or acknowledgement came from an unauthorized server</td></tr><tr><td>2026-04-24 09:05:02</td><td>PROTO-0043</td><td>HIGH</td><td>0.77</td><td>protocol</td><td>10.0.1.66</td><td>198.51.100.44</td><td>Protocol-aware threat indicator</td><td>internal host sent high-volume outbound SMTP directly to the internet</td></tr><tr><td>2026-04-24 09:05:02</td><td>SIG-SMTP-SPAMBOT-0012</td><td>HIGH</td><td>0.75</td><td>signature</td><td>10.0.1.66</td><td>198.51.100.44</td><td>High-volume direct SMTP egress</td><td>Internal host sent unusually high SMTP packet volume directly to the internet.</td></tr><tr><td>2026-04-24 09:05:25</td><td>ANOM-0026</td><td>HIGH</td><td>0.99</td><td>anomaly</td><td>198.51.100.77</td><td>10.0.2.200</td><td>Behavioral anomaly detected</td><td>bytes_out z-score 100.00 exceeded threshold; duration_ms z-score 200.00 exceeded threshold</td></tr><tr><td>2026-04-24 09:05:25</td><td>PROTO-0044</td><td>HIGH</td><td>0.99</td><td>protocol</td><td>198.51.100.77</td><td>10.0.2.200</td><td>Protocol-aware threat indicator</td><td>directory service reached from outside internal networks</td></tr><tr><td>2026-04-24 09:05:46</td><td>ANOM-0027</td><td>HIGH</td><td>0.80</td><td>anomaly</td><td>10.0.1.25</td><td>198.51.100.25</td><td>Behavioral anomaly detected</td><td>bytes_out z-score 8.00 exceeded threshold; duration_ms z-score 5.00 exceeded threshold</td></tr><tr><td>2026-04-24 09:05:46</td><td>CORR-0050</td><td>HIGH</td><td>0.84</td><td>correlation</td><td>10.0.1.25</td><td>multiple</td><td>Multi-stage intrusion campaign</td><td>3 alerts from the same source exceeded the campaign threshold; alert mix: anomaly=1, protocol=1, signature=1</td></tr><tr><td>2026-04-24 09:05:46</td><td>PROTO-0045</td><td>MEDIUM</td><td>0.64</td><td>protocol</td><td>10.0.1.25</td><td>198.51.100.25</td><td>Protocol-aware threat indicator</td><td>NTP response volume greatly exceeded request volume</td></tr><tr><td>2026-04-24 09:05:46</td><td>SIG-NTP-AMPLIFICATION-0013</td><td>MEDIUM</td><td>0.55</td><td>signature</td><td>10.0.1.25</td><td>198.51.100.25</td><td>NTP amplification behavior</td><td>NTP flow shows a large response volume compared with request size.</td></tr></tbody>
+      </table>
+      <div class="footer">This sample project analyzes flow records rather than full packet payloads, making it lightweight and practical for baseline detection engineering.</div>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,1226 @@
+{
+  "generated_at": "2026-04-24T21:29:53.292017",
+  "processed_flows": 31,
+  "severity_counts": {
+    "critical": 21,
+    "high": 24,
+    "medium": 6
+  },
+  "category_counts": {
+    "signature": 13,
+    "anomaly": 13,
+    "protocol": 19,
+    "correlation": 6
+  },
+  "top_talkers": [
+    {
+      "src_ip": "10.0.1.90",
+      "total_bytes": 8018600
+    },
+    {
+      "src_ip": "10.0.1.13",
+      "total_bytes": 1272000
+    },
+    {
+      "src_ip": "10.0.1.10",
+      "total_bytes": 857500
+    },
+    {
+      "src_ip": "10.0.1.66",
+      "total_bytes": 841500
+    },
+    {
+      "src_ip": "10.0.1.12",
+      "total_bytes": 93000
+    }
+  ],
+  "alerts": [
+    {
+      "alert_id": "PROTO-0027",
+      "timestamp": "2026-04-24T09:01:30",
+      "severity": "critical",
+      "category": "protocol",
+      "title": "Protocol-aware threat indicator",
+      "src_ip": "10.0.1.18",
+      "dst_ip": "10.0.2.1",
+      "confidence": 0.92,
+      "reasons": [
+        "DHCP offer or acknowledgement came from an unauthorized server"
+      ],
+      "evidence": {
+        "protocol": "UDP",
+        "app": "dhcp",
+        "dst_port": 67,
+        "findings": [
+          "Rogue DHCP server"
+        ],
+        "dhcp_message": "ACK"
+      }
+    },
+    {
+      "alert_id": "ANOM-0014",
+      "timestamp": "2026-04-24T09:02:10",
+      "severity": "critical",
+      "category": "anomaly",
+      "title": "Behavioral anomaly detected",
+      "src_ip": "198.51.100.44",
+      "dst_ip": "10.0.2.22",
+      "confidence": 0.99,
+      "reasons": [
+        "bytes_out z-score 1200.00 exceeded threshold",
+        "duration_ms z-score 900.00 exceeded threshold",
+        "packets_out z-score 4.00 exceeded threshold"
+      ],
+      "evidence": {
+        "bytes_out_zscore": 1200.0,
+        "duration_ms_zscore": 900.0,
+        "packets_out_zscore": 4.0,
+        "protocol": "TCP",
+        "dst_port": 80,
+        "bytes_out": 3000,
+        "bytes_in": 600,
+        "external_to_internal": true
+      }
+    },
+    {
+      "alert_id": "PROTO-0028",
+      "timestamp": "2026-04-24T09:02:10",
+      "severity": "high",
+      "category": "protocol",
+      "title": "Protocol-aware threat indicator",
+      "src_ip": "198.51.100.44",
+      "dst_ip": "10.0.2.22",
+      "confidence": 0.9,
+      "reasons": [
+        "URI contains exploit-like payload markers",
+        "user agent is commonly used by scanners or automation"
+      ],
+      "evidence": {
+        "protocol": "TCP",
+        "app": "http",
+        "dst_port": 80,
+        "findings": [
+          "HTTP exploit attempt",
+          "Suspicious HTTP client"
+        ],
+        "uri": "/../../etc/passwd",
+        "user_agent": "sqlmap/1.7",
+        "external_to_internal": true
+      }
+    },
+    {
+      "alert_id": "ANOM-0015",
+      "timestamp": "2026-04-24T09:02:24",
+      "severity": "critical",
+      "category": "anomaly",
+      "title": "Behavioral anomaly detected",
+      "src_ip": "10.0.1.88",
+      "dst_ip": "8.8.8.8",
+      "confidence": 0.95,
+      "reasons": [
+        "bytes_out z-score 1080.00 exceeded threshold",
+        "duration_ms z-score 150.00 exceeded threshold",
+        "packets_out z-score 5.00 exceeded threshold",
+        "oversized DNS query consistent with covert channeling"
+      ],
+      "evidence": {
+        "bytes_out_zscore": 1080.0,
+        "duration_ms_zscore": 150.0,
+        "packets_out_zscore": 5.0,
+        "dns_query_length": 44,
+        "protocol": "UDP",
+        "dst_port": 53,
+        "bytes_out": 1200,
+        "bytes_in": 150
+      }
+    },
+    {
+      "alert_id": "CORR-0046",
+      "timestamp": "2026-04-24T09:02:24",
+      "severity": "critical",
+      "category": "correlation",
+      "title": "Multi-stage intrusion campaign",
+      "src_ip": "10.0.1.88",
+      "dst_ip": "multiple",
+      "confidence": 0.84,
+      "reasons": [
+        "3 alerts from the same source exceeded the campaign threshold",
+        "alert mix: anomaly=1, protocol=1, signature=1"
+      ],
+      "evidence": {
+        "first_seen": "2026-04-24T09:02:24",
+        "last_seen": "2026-04-24T09:02:24",
+        "related_alert_ids": [
+          "SIG-DNS-TUNNEL-0001",
+          "ANOM-0015",
+          "PROTO-0029"
+        ]
+      }
+    },
+    {
+      "alert_id": "PROTO-0029",
+      "timestamp": "2026-04-24T09:02:24",
+      "severity": "high",
+      "category": "protocol",
+      "title": "Protocol-aware threat indicator",
+      "src_ip": "10.0.1.88",
+      "dst_ip": "8.8.8.8",
+      "confidence": 0.81,
+      "reasons": [
+        "internal host queried a DNS server outside the approved resolver set",
+        "DNS query contains an unusually long label"
+      ],
+      "evidence": {
+        "protocol": "UDP",
+        "app": "dns",
+        "dst_port": 53,
+        "findings": [
+          "Unapproved DNS resolver",
+          "Encoded DNS label"
+        ],
+        "resolver": "8.8.8.8",
+        "longest_label": 44
+      }
+    },
+    {
+      "alert_id": "SIG-DNS-TUNNEL-0001",
+      "timestamp": "2026-04-24T09:02:24",
+      "severity": "critical",
+      "category": "signature",
+      "title": "Suspicious DNS tunneling",
+      "src_ip": "10.0.1.88",
+      "dst_ip": "8.8.8.8",
+      "confidence": 0.92,
+      "reasons": [
+        "Long DNS queries with outsized egress."
+      ],
+      "evidence": {
+        "rule_id": "SIG-DNS-TUNNEL",
+        "protocol": "UDP",
+        "dst_port": 53,
+        "bytes_out": 1200,
+        "packets_out": 7
+      }
+    },
+    {
+      "alert_id": "ANOM-0016",
+      "timestamp": "2026-04-24T09:02:40",
+      "severity": "critical",
+      "category": "anomaly",
+      "title": "Behavioral anomaly detected",
+      "src_ip": "10.0.1.90",
+      "dst_ip": "203.0.113.10",
+      "confidence": 0.95,
+      "reasons": [
+        "bytes_out z-score 859.53 exceeded threshold",
+        "duration_ms z-score 31.57 exceeded threshold",
+        "packets_out z-score 1140.00 exceeded threshold",
+        "egress-heavy flow suggests possible exfiltration"
+      ],
+      "evidence": {
+        "bytes_out_zscore": 859.53,
+        "duration_ms_zscore": 31.57,
+        "packets_out_zscore": 1140.0,
+        "egress_ratio": 436.17,
+        "protocol": "TCP",
+        "dst_port": 443,
+        "bytes_out": 4100000,
+        "bytes_in": 9400
+      }
+    },
+    {
+      "alert_id": "PROTO-0030",
+      "timestamp": "2026-04-24T09:02:40",
+      "severity": "high",
+      "category": "protocol",
+      "title": "Protocol-aware threat indicator",
+      "src_ip": "10.0.1.90",
+      "dst_ip": "203.0.113.10",
+      "confidence": 0.81,
+      "reasons": [
+        "JA3 fingerprint matches configured threat profile",
+        "large outbound TLS flow has no SNI for attribution"
+      ],
+      "evidence": {
+        "protocol": "TCP",
+        "app": "https",
+        "dst_port": 443,
+        "findings": [
+          "Suspicious TLS fingerprint",
+          "Opaque TLS egress"
+        ],
+        "ja3": "72a589da586844d7f0818ce684948eea",
+        "bytes_out": 4100000
+      }
+    },
+    {
+      "alert_id": "SIG-HTTPS-EXFIL-0002",
+      "timestamp": "2026-04-24T09:02:40",
+      "severity": "critical",
+      "category": "signature",
+      "title": "Potential large HTTPS data exfiltration",
+      "src_ip": "10.0.1.90",
+      "dst_ip": "203.0.113.10",
+      "confidence": 0.92,
+      "reasons": [
+        "Unusually large outbound transfer over HTTPS."
+      ],
+      "evidence": {
+        "rule_id": "SIG-HTTPS-EXFIL",
+        "protocol": "TCP",
+        "dst_port": 443,
+        "bytes_out": 4100000,
+        "packets_out": 2300
+      }
+    },
+    {
+      "alert_id": "ANOM-0017",
+      "timestamp": "2026-04-24T09:02:55",
+      "severity": "critical",
+      "category": "anomaly",
+      "title": "Behavioral anomaly detected",
+      "src_ip": "10.0.1.90",
+      "dst_ip": "203.0.113.10",
+      "confidence": 0.95,
+      "reasons": [
+        "bytes_out z-score 817.42 exceeded threshold",
+        "duration_ms z-score 30.86 exceeded threshold",
+        "packets_out z-score 1090.00 exceeded threshold",
+        "egress-heavy flow suggests possible exfiltration"
+      ],
+      "evidence": {
+        "bytes_out_zscore": 817.42,
+        "duration_ms_zscore": 30.86,
+        "packets_out_zscore": 1090.0,
+        "egress_ratio": 423.91,
+        "protocol": "TCP",
+        "dst_port": 443,
+        "bytes_out": 3900000,
+        "bytes_in": 9200
+      }
+    },
+    {
+      "alert_id": "CORR-0047",
+      "timestamp": "2026-04-24T09:02:55",
+      "severity": "critical",
+      "category": "correlation",
+      "title": "Multi-stage intrusion campaign",
+      "src_ip": "10.0.1.90",
+      "dst_ip": "multiple",
+      "confidence": 0.98,
+      "reasons": [
+        "6 alerts from the same source exceeded the campaign threshold",
+        "alert mix: anomaly=2, protocol=2, signature=2"
+      ],
+      "evidence": {
+        "first_seen": "2026-04-24T09:02:40",
+        "last_seen": "2026-04-24T09:02:55",
+        "related_alert_ids": [
+          "SIG-HTTPS-EXFIL-0002",
+          "ANOM-0016",
+          "PROTO-0030",
+          "SIG-HTTPS-EXFIL-0003",
+          "ANOM-0017",
+          "PROTO-0031"
+        ]
+      }
+    },
+    {
+      "alert_id": "PROTO-0031",
+      "timestamp": "2026-04-24T09:02:55",
+      "severity": "high",
+      "category": "protocol",
+      "title": "Protocol-aware threat indicator",
+      "src_ip": "10.0.1.90",
+      "dst_ip": "203.0.113.10",
+      "confidence": 0.81,
+      "reasons": [
+        "JA3 fingerprint matches configured threat profile",
+        "large outbound TLS flow has no SNI for attribution"
+      ],
+      "evidence": {
+        "protocol": "TCP",
+        "app": "https",
+        "dst_port": 443,
+        "findings": [
+          "Suspicious TLS fingerprint",
+          "Opaque TLS egress"
+        ],
+        "ja3": "72a589da586844d7f0818ce684948eea",
+        "bytes_out": 3900000
+      }
+    },
+    {
+      "alert_id": "SIG-HTTPS-EXFIL-0003",
+      "timestamp": "2026-04-24T09:02:55",
+      "severity": "critical",
+      "category": "signature",
+      "title": "Potential large HTTPS data exfiltration",
+      "src_ip": "10.0.1.90",
+      "dst_ip": "203.0.113.10",
+      "confidence": 0.92,
+      "reasons": [
+        "Unusually large outbound transfer over HTTPS."
+      ],
+      "evidence": {
+        "rule_id": "SIG-HTTPS-EXFIL",
+        "protocol": "TCP",
+        "dst_port": 443,
+        "bytes_out": 3900000,
+        "packets_out": 2200
+      }
+    },
+    {
+      "alert_id": "SIG-PORTSCAN-0004",
+      "timestamp": "2026-04-24T09:03:10",
+      "severity": "high",
+      "category": "signature",
+      "title": "Rapid horizontal scan",
+      "src_ip": "172.16.5.99",
+      "dst_ip": "10.0.2.100",
+      "confidence": 0.87,
+      "reasons": [
+        "Flags repeated probing behavior from a single source."
+      ],
+      "evidence": {
+        "rule_id": "SIG-PORTSCAN",
+        "protocol": "TCP",
+        "dst_port": 21,
+        "bytes_out": 700,
+        "packets_out": 4,
+        "critical_asset": true
+      }
+    },
+    {
+      "alert_id": "SIG-PORTSCAN-0005",
+      "timestamp": "2026-04-24T09:03:12",
+      "severity": "high",
+      "category": "signature",
+      "title": "Rapid horizontal scan",
+      "src_ip": "172.16.5.99",
+      "dst_ip": "10.0.2.101",
+      "confidence": 0.75,
+      "reasons": [
+        "Flags repeated probing behavior from a single source."
+      ],
+      "evidence": {
+        "rule_id": "SIG-PORTSCAN",
+        "protocol": "TCP",
+        "dst_port": 22,
+        "bytes_out": 720,
+        "packets_out": 4
+      }
+    },
+    {
+      "alert_id": "SIG-PORTSCAN-0006",
+      "timestamp": "2026-04-24T09:03:14",
+      "severity": "high",
+      "category": "signature",
+      "title": "Rapid horizontal scan",
+      "src_ip": "172.16.5.99",
+      "dst_ip": "10.0.2.102",
+      "confidence": 0.75,
+      "reasons": [
+        "Flags repeated probing behavior from a single source."
+      ],
+      "evidence": {
+        "rule_id": "SIG-PORTSCAN",
+        "protocol": "TCP",
+        "dst_port": 23,
+        "bytes_out": 690,
+        "packets_out": 4
+      }
+    },
+    {
+      "alert_id": "ANOM-0018",
+      "timestamp": "2026-04-24T09:03:16",
+      "severity": "critical",
+      "category": "anomaly",
+      "title": "Behavioral anomaly detected",
+      "src_ip": "172.16.5.99",
+      "dst_ip": "10.0.2.103",
+      "confidence": 0.95,
+      "reasons": [
+        "bytes_out z-score 4420.00 exceeded threshold",
+        "duration_ms z-score 1780.00 exceeded threshold",
+        "packets_out z-score 14.00 exceeded threshold",
+        "source touched at least 4 distinct destination ports"
+      ],
+      "evidence": {
+        "bytes_out_zscore": 4420.0,
+        "duration_ms_zscore": 1780.0,
+        "packets_out_zscore": 14.0,
+        "distinct_dst_ports": 4,
+        "protocol": "TCP",
+        "dst_port": 445,
+        "bytes_out": 680,
+        "bytes_in": 0
+      }
+    },
+    {
+      "alert_id": "PROTO-0032",
+      "timestamp": "2026-04-24T09:03:16",
+      "severity": "high",
+      "category": "protocol",
+      "title": "Protocol-aware threat indicator",
+      "src_ip": "172.16.5.99",
+      "dst_ip": "10.0.2.103",
+      "confidence": 0.78,
+      "reasons": [
+        "SMB flow referenced an administrative share"
+      ],
+      "evidence": {
+        "protocol": "TCP",
+        "app": "smb",
+        "dst_port": 445,
+        "findings": [
+          "Administrative SMB share access"
+        ],
+        "share": "IPC$"
+      }
+    },
+    {
+      "alert_id": "SIG-PORTSCAN-0007",
+      "timestamp": "2026-04-24T09:03:16",
+      "severity": "high",
+      "category": "signature",
+      "title": "Rapid horizontal scan",
+      "src_ip": "172.16.5.99",
+      "dst_ip": "10.0.2.103",
+      "confidence": 0.75,
+      "reasons": [
+        "Flags repeated probing behavior from a single source."
+      ],
+      "evidence": {
+        "rule_id": "SIG-PORTSCAN",
+        "protocol": "TCP",
+        "dst_port": 445,
+        "bytes_out": 680,
+        "packets_out": 4
+      }
+    },
+    {
+      "alert_id": "ANOM-0019",
+      "timestamp": "2026-04-24T09:03:18",
+      "severity": "critical",
+      "category": "anomaly",
+      "title": "Behavioral anomaly detected",
+      "src_ip": "172.16.5.99",
+      "dst_ip": "10.0.2.104",
+      "confidence": 0.95,
+      "reasons": [
+        "bytes_out z-score 3240.00 exceeded threshold",
+        "duration_ms z-score 1260.00 exceeded threshold",
+        "packets_out z-score 8.00 exceeded threshold",
+        "source touched at least 4 distinct destination ports"
+      ],
+      "evidence": {
+        "bytes_out_zscore": 3240.0,
+        "duration_ms_zscore": 1260.0,
+        "packets_out_zscore": 8.0,
+        "distinct_dst_ports": 5,
+        "protocol": "TCP",
+        "dst_port": 3389,
+        "bytes_out": 760,
+        "bytes_in": 0
+      }
+    },
+    {
+      "alert_id": "CORR-0048",
+      "timestamp": "2026-04-24T09:03:18",
+      "severity": "critical",
+      "category": "correlation",
+      "title": "Multi-stage intrusion campaign",
+      "src_ip": "172.16.5.99",
+      "dst_ip": "multiple",
+      "confidence": 0.98,
+      "reasons": [
+        "9 alerts from the same source exceeded the campaign threshold",
+        "alert mix: anomaly=2, protocol=2, signature=5"
+      ],
+      "evidence": {
+        "first_seen": "2026-04-24T09:03:10",
+        "last_seen": "2026-04-24T09:03:18",
+        "related_alert_ids": [
+          "SIG-PORTSCAN-0004",
+          "SIG-PORTSCAN-0005",
+          "SIG-PORTSCAN-0006",
+          "SIG-PORTSCAN-0007",
+          "ANOM-0018",
+          "PROTO-0032",
+          "SIG-PORTSCAN-0008",
+          "ANOM-0019",
+          "PROTO-0033"
+        ]
+      }
+    },
+    {
+      "alert_id": "PROTO-0033",
+      "timestamp": "2026-04-24T09:03:18",
+      "severity": "high",
+      "category": "protocol",
+      "title": "Protocol-aware threat indicator",
+      "src_ip": "172.16.5.99",
+      "dst_ip": "10.0.2.104",
+      "confidence": 0.82,
+      "reasons": [
+        "source contacted many distinct internal services"
+      ],
+      "evidence": {
+        "protocol": "TCP",
+        "app": "rdp",
+        "dst_port": 3389,
+        "findings": [
+          "Lateral movement probe"
+        ],
+        "distinct_services": 5
+      }
+    },
+    {
+      "alert_id": "SIG-PORTSCAN-0008",
+      "timestamp": "2026-04-24T09:03:18",
+      "severity": "high",
+      "category": "signature",
+      "title": "Rapid horizontal scan",
+      "src_ip": "172.16.5.99",
+      "dst_ip": "10.0.2.104",
+      "confidence": 0.75,
+      "reasons": [
+        "Flags repeated probing behavior from a single source."
+      ],
+      "evidence": {
+        "rule_id": "SIG-PORTSCAN",
+        "protocol": "TCP",
+        "dst_port": 3389,
+        "bytes_out": 760,
+        "packets_out": 4
+      }
+    },
+    {
+      "alert_id": "PROTO-0034",
+      "timestamp": "2026-04-24T09:03:35",
+      "severity": "high",
+      "category": "protocol",
+      "title": "Protocol-aware threat indicator",
+      "src_ip": "10.0.1.77",
+      "dst_ip": "10.0.2.50",
+      "confidence": 0.91,
+      "reasons": [
+        "failed SSH flow carried elevated packet volume"
+      ],
+      "evidence": {
+        "protocol": "TCP",
+        "app": "ssh",
+        "dst_port": 22,
+        "findings": [
+          "SSH brute-force pressure"
+        ],
+        "packets_out": 24,
+        "critical_asset": true
+      }
+    },
+    {
+      "alert_id": "SIG-SSH-BRUTEFORCE-0009",
+      "timestamp": "2026-04-24T09:03:35",
+      "severity": "high",
+      "category": "signature",
+      "title": "Repeated SSH authentication pressure",
+      "src_ip": "10.0.1.77",
+      "dst_ip": "10.0.2.50",
+      "confidence": 0.87,
+      "reasons": [
+        "Large failed SSH flow toward a protected server."
+      ],
+      "evidence": {
+        "rule_id": "SIG-SSH-BRUTEFORCE",
+        "protocol": "TCP",
+        "dst_port": 22,
+        "bytes_out": 3500,
+        "packets_out": 24,
+        "critical_asset": true
+      }
+    },
+    {
+      "alert_id": "PROTO-0035",
+      "timestamp": "2026-04-24T09:03:41",
+      "severity": "high",
+      "category": "protocol",
+      "title": "Protocol-aware threat indicator",
+      "src_ip": "10.0.1.77",
+      "dst_ip": "10.0.2.50",
+      "confidence": 0.91,
+      "reasons": [
+        "failed SSH flow carried elevated packet volume"
+      ],
+      "evidence": {
+        "protocol": "TCP",
+        "app": "ssh",
+        "dst_port": 22,
+        "findings": [
+          "SSH brute-force pressure"
+        ],
+        "packets_out": 25,
+        "critical_asset": true
+      }
+    },
+    {
+      "alert_id": "SIG-SSH-BRUTEFORCE-0010",
+      "timestamp": "2026-04-24T09:03:41",
+      "severity": "high",
+      "category": "signature",
+      "title": "Repeated SSH authentication pressure",
+      "src_ip": "10.0.1.77",
+      "dst_ip": "10.0.2.50",
+      "confidence": 0.87,
+      "reasons": [
+        "Large failed SSH flow toward a protected server."
+      ],
+      "evidence": {
+        "rule_id": "SIG-SSH-BRUTEFORCE",
+        "protocol": "TCP",
+        "dst_port": 22,
+        "bytes_out": 3600,
+        "packets_out": 25,
+        "critical_asset": true
+      }
+    },
+    {
+      "alert_id": "CORR-0049",
+      "timestamp": "2026-04-24T09:03:47",
+      "severity": "high",
+      "category": "correlation",
+      "title": "Multi-stage intrusion campaign",
+      "src_ip": "10.0.1.77",
+      "dst_ip": "multiple",
+      "confidence": 0.98,
+      "reasons": [
+        "6 alerts from the same source exceeded the campaign threshold",
+        "alert mix: protocol=3, signature=3"
+      ],
+      "evidence": {
+        "first_seen": "2026-04-24T09:03:35",
+        "last_seen": "2026-04-24T09:03:47",
+        "related_alert_ids": [
+          "SIG-SSH-BRUTEFORCE-0009",
+          "PROTO-0034",
+          "SIG-SSH-BRUTEFORCE-0010",
+          "PROTO-0035",
+          "SIG-SSH-BRUTEFORCE-0011",
+          "PROTO-0036"
+        ]
+      }
+    },
+    {
+      "alert_id": "PROTO-0036",
+      "timestamp": "2026-04-24T09:03:47",
+      "severity": "high",
+      "category": "protocol",
+      "title": "Protocol-aware threat indicator",
+      "src_ip": "10.0.1.77",
+      "dst_ip": "10.0.2.50",
+      "confidence": 0.97,
+      "reasons": [
+        "failed SSH flow carried elevated packet volume",
+        "multiple failed logins against the same service"
+      ],
+      "evidence": {
+        "protocol": "TCP",
+        "app": "ssh",
+        "dst_port": 22,
+        "findings": [
+          "SSH brute-force pressure",
+          "Repeated failed authentication"
+        ],
+        "packets_out": 26,
+        "failed_attempts": 3,
+        "critical_asset": true
+      }
+    },
+    {
+      "alert_id": "SIG-SSH-BRUTEFORCE-0011",
+      "timestamp": "2026-04-24T09:03:47",
+      "severity": "high",
+      "category": "signature",
+      "title": "Repeated SSH authentication pressure",
+      "src_ip": "10.0.1.77",
+      "dst_ip": "10.0.2.50",
+      "confidence": 0.87,
+      "reasons": [
+        "Large failed SSH flow toward a protected server."
+      ],
+      "evidence": {
+        "rule_id": "SIG-SSH-BRUTEFORCE",
+        "protocol": "TCP",
+        "dst_port": 22,
+        "bytes_out": 3650,
+        "packets_out": 26,
+        "critical_asset": true
+      }
+    },
+    {
+      "alert_id": "ANOM-0020",
+      "timestamp": "2026-04-24T09:04:05",
+      "severity": "critical",
+      "category": "anomaly",
+      "title": "Behavioral anomaly detected",
+      "src_ip": "203.0.113.99",
+      "dst_ip": "10.0.2.100",
+      "confidence": 0.99,
+      "reasons": [
+        "bytes_out z-score 2500.00 exceeded threshold",
+        "duration_ms z-score 1400.00 exceeded threshold",
+        "packets_out z-score 6.00 exceeded threshold"
+      ],
+      "evidence": {
+        "bytes_out_zscore": 2500.0,
+        "duration_ms_zscore": 1400.0,
+        "packets_out_zscore": 6.0,
+        "protocol": "TCP",
+        "dst_port": 445,
+        "bytes_out": 2600,
+        "bytes_in": 300,
+        "critical_asset": true,
+        "external_to_internal": true
+      }
+    },
+    {
+      "alert_id": "PROTO-0037",
+      "timestamp": "2026-04-24T09:04:05",
+      "severity": "critical",
+      "category": "protocol",
+      "title": "Protocol-aware threat indicator",
+      "src_ip": "203.0.113.99",
+      "dst_ip": "10.0.2.100",
+      "confidence": 0.99,
+      "reasons": [
+        "external source attempted SMB access to an internal host",
+        "SMB flow referenced an administrative share"
+      ],
+      "evidence": {
+        "protocol": "TCP",
+        "app": "smb",
+        "dst_port": 445,
+        "findings": [
+          "External SMB access",
+          "Administrative SMB share access"
+        ],
+        "share": "ADMIN$",
+        "critical_asset": true,
+        "external_to_internal": true
+      }
+    },
+    {
+      "alert_id": "ANOM-0021",
+      "timestamp": "2026-04-24T09:04:18",
+      "severity": "critical",
+      "category": "anomaly",
+      "title": "Behavioral anomaly detected",
+      "src_ip": "10.0.1.55",
+      "dst_ip": "10.0.2.31",
+      "confidence": 0.95,
+      "reasons": [
+        "bytes_out z-score 896.00 exceeded threshold",
+        "duration_ms z-score 70.00 exceeded threshold",
+        "packets_out z-score 21.00 exceeded threshold"
+      ],
+      "evidence": {
+        "bytes_out_zscore": 896.0,
+        "duration_ms_zscore": 70.0,
+        "packets_out_zscore": 21.0,
+        "protocol": "ICMP",
+        "dst_port": 0,
+        "bytes_out": 1024,
+        "bytes_in": 0
+      }
+    },
+    {
+      "alert_id": "PROTO-0038",
+      "timestamp": "2026-04-24T09:04:18",
+      "severity": "medium",
+      "category": "protocol",
+      "title": "Protocol-aware threat indicator",
+      "src_ip": "10.0.1.55",
+      "dst_ip": "10.0.2.31",
+      "confidence": 0.63,
+      "reasons": [
+        "high-volume echo traffic may indicate reconnaissance or tunneling"
+      ],
+      "evidence": {
+        "protocol": "ICMP",
+        "app": "icmp",
+        "dst_port": 0,
+        "findings": [
+          "ICMP burst"
+        ],
+        "packets_out": 22
+      }
+    },
+    {
+      "alert_id": "ANOM-0022",
+      "timestamp": "2026-04-24T09:04:20",
+      "severity": "critical",
+      "category": "anomaly",
+      "title": "Behavioral anomaly detected",
+      "src_ip": "10.0.1.55",
+      "dst_ip": "10.0.2.32",
+      "confidence": 0.95,
+      "reasons": [
+        "bytes_out z-score 896.00 exceeded threshold",
+        "duration_ms z-score 70.00 exceeded threshold",
+        "packets_out z-score 21.00 exceeded threshold"
+      ],
+      "evidence": {
+        "bytes_out_zscore": 896.0,
+        "duration_ms_zscore": 70.0,
+        "packets_out_zscore": 21.0,
+        "protocol": "ICMP",
+        "dst_port": 0,
+        "bytes_out": 1024,
+        "bytes_in": 0
+      }
+    },
+    {
+      "alert_id": "PROTO-0039",
+      "timestamp": "2026-04-24T09:04:20",
+      "severity": "medium",
+      "category": "protocol",
+      "title": "Protocol-aware threat indicator",
+      "src_ip": "10.0.1.55",
+      "dst_ip": "10.0.2.32",
+      "confidence": 0.63,
+      "reasons": [
+        "high-volume echo traffic may indicate reconnaissance or tunneling"
+      ],
+      "evidence": {
+        "protocol": "ICMP",
+        "app": "icmp",
+        "dst_port": 0,
+        "findings": [
+          "ICMP burst"
+        ],
+        "packets_out": 22
+      }
+    },
+    {
+      "alert_id": "ANOM-0023",
+      "timestamp": "2026-04-24T09:04:22",
+      "severity": "critical",
+      "category": "anomaly",
+      "title": "Behavioral anomaly detected",
+      "src_ip": "10.0.1.55",
+      "dst_ip": "10.0.2.33",
+      "confidence": 0.95,
+      "reasons": [
+        "bytes_out z-score 896.00 exceeded threshold",
+        "duration_ms z-score 70.00 exceeded threshold",
+        "packets_out z-score 21.00 exceeded threshold"
+      ],
+      "evidence": {
+        "bytes_out_zscore": 896.0,
+        "duration_ms_zscore": 70.0,
+        "packets_out_zscore": 21.0,
+        "protocol": "ICMP",
+        "dst_port": 0,
+        "bytes_out": 1024,
+        "bytes_in": 0
+      }
+    },
+    {
+      "alert_id": "PROTO-0040",
+      "timestamp": "2026-04-24T09:04:22",
+      "severity": "medium",
+      "category": "protocol",
+      "title": "Protocol-aware threat indicator",
+      "src_ip": "10.0.1.55",
+      "dst_ip": "10.0.2.33",
+      "confidence": 0.63,
+      "reasons": [
+        "high-volume echo traffic may indicate reconnaissance or tunneling"
+      ],
+      "evidence": {
+        "protocol": "ICMP",
+        "app": "icmp",
+        "dst_port": 0,
+        "findings": [
+          "ICMP burst"
+        ],
+        "packets_out": 22
+      }
+    },
+    {
+      "alert_id": "ANOM-0024",
+      "timestamp": "2026-04-24T09:04:24",
+      "severity": "critical",
+      "category": "anomaly",
+      "title": "Behavioral anomaly detected",
+      "src_ip": "10.0.1.55",
+      "dst_ip": "10.0.2.34",
+      "confidence": 0.95,
+      "reasons": [
+        "bytes_out z-score 896.00 exceeded threshold",
+        "duration_ms z-score 70.00 exceeded threshold",
+        "packets_out z-score 21.00 exceeded threshold"
+      ],
+      "evidence": {
+        "bytes_out_zscore": 896.0,
+        "duration_ms_zscore": 70.0,
+        "packets_out_zscore": 21.0,
+        "protocol": "ICMP",
+        "dst_port": 0,
+        "bytes_out": 1024,
+        "bytes_in": 0
+      }
+    },
+    {
+      "alert_id": "CORR-0051",
+      "timestamp": "2026-04-24T09:04:24",
+      "severity": "critical",
+      "category": "correlation",
+      "title": "Multi-stage intrusion campaign",
+      "src_ip": "10.0.1.55",
+      "dst_ip": "multiple",
+      "confidence": 0.98,
+      "reasons": [
+        "8 alerts from the same source exceeded the campaign threshold",
+        "alert mix: anomaly=4, protocol=4"
+      ],
+      "evidence": {
+        "first_seen": "2026-04-24T09:04:18",
+        "last_seen": "2026-04-24T09:04:24",
+        "related_alert_ids": [
+          "ANOM-0021",
+          "PROTO-0038",
+          "ANOM-0022",
+          "PROTO-0039",
+          "ANOM-0023",
+          "PROTO-0040",
+          "ANOM-0024",
+          "PROTO-0041"
+        ]
+      }
+    },
+    {
+      "alert_id": "PROTO-0041",
+      "timestamp": "2026-04-24T09:04:24",
+      "severity": "medium",
+      "category": "protocol",
+      "title": "Protocol-aware threat indicator",
+      "src_ip": "10.0.1.55",
+      "dst_ip": "10.0.2.34",
+      "confidence": 0.71,
+      "reasons": [
+        "high-volume echo traffic may indicate reconnaissance or tunneling",
+        "echo requests touched many hosts"
+      ],
+      "evidence": {
+        "protocol": "ICMP",
+        "app": "icmp",
+        "dst_port": 0,
+        "findings": [
+          "ICMP burst",
+          "ICMP sweep"
+        ],
+        "packets_out": 22,
+        "distinct_hosts": 4
+      }
+    },
+    {
+      "alert_id": "PROTO-0042",
+      "timestamp": "2026-04-24T09:04:40",
+      "severity": "critical",
+      "category": "protocol",
+      "title": "Protocol-aware threat indicator",
+      "src_ip": "10.0.7.200",
+      "dst_ip": "255.255.255.255",
+      "confidence": 0.92,
+      "reasons": [
+        "DHCP offer or acknowledgement came from an unauthorized server"
+      ],
+      "evidence": {
+        "protocol": "UDP",
+        "app": "dhcp",
+        "dst_port": 68,
+        "findings": [
+          "Rogue DHCP server"
+        ],
+        "dhcp_message": "OFFER"
+      }
+    },
+    {
+      "alert_id": "PROTO-0043",
+      "timestamp": "2026-04-24T09:05:02",
+      "severity": "high",
+      "category": "protocol",
+      "title": "Protocol-aware threat indicator",
+      "src_ip": "10.0.1.66",
+      "dst_ip": "198.51.100.44",
+      "confidence": 0.77,
+      "reasons": [
+        "internal host sent high-volume outbound SMTP directly to the internet"
+      ],
+      "evidence": {
+        "protocol": "TCP",
+        "app": "smtp",
+        "dst_port": 25,
+        "findings": [
+          "Possible SMTP spam relay"
+        ],
+        "packets_out": 180
+      }
+    },
+    {
+      "alert_id": "SIG-SMTP-SPAMBOT-0012",
+      "timestamp": "2026-04-24T09:05:02",
+      "severity": "high",
+      "category": "signature",
+      "title": "High-volume direct SMTP egress",
+      "src_ip": "10.0.1.66",
+      "dst_ip": "198.51.100.44",
+      "confidence": 0.75,
+      "reasons": [
+        "Internal host sent unusually high SMTP packet volume directly to the internet."
+      ],
+      "evidence": {
+        "rule_id": "SIG-SMTP-SPAMBOT",
+        "protocol": "TCP",
+        "dst_port": 25,
+        "bytes_out": 840000,
+        "packets_out": 180
+      }
+    },
+    {
+      "alert_id": "ANOM-0025",
+      "timestamp": "2026-04-24T09:05:25",
+      "severity": "high",
+      "category": "anomaly",
+      "title": "Behavioral anomaly detected",
+      "src_ip": "198.51.100.77",
+      "dst_ip": "10.0.2.200",
+      "confidence": 0.99,
+      "reasons": [
+        "bytes_out z-score 100.00 exceeded threshold",
+        "duration_ms z-score 200.00 exceeded threshold"
+      ],
+      "evidence": {
+        "bytes_out_zscore": 100.0,
+        "duration_ms_zscore": 200.0,
+        "protocol": "TCP",
+        "dst_port": 389,
+        "bytes_out": 2500,
+        "bytes_in": 300,
+        "critical_asset": true,
+        "external_to_internal": true
+      }
+    },
+    {
+      "alert_id": "PROTO-0044",
+      "timestamp": "2026-04-24T09:05:25",
+      "severity": "high",
+      "category": "protocol",
+      "title": "Protocol-aware threat indicator",
+      "src_ip": "198.51.100.77",
+      "dst_ip": "10.0.2.200",
+      "confidence": 0.98,
+      "reasons": [
+        "directory service reached from outside internal networks"
+      ],
+      "evidence": {
+        "protocol": "TCP",
+        "app": "ldap",
+        "dst_port": 389,
+        "findings": [
+          "External LDAP access"
+        ],
+        "critical_asset": true,
+        "external_to_internal": true
+      }
+    },
+    {
+      "alert_id": "ANOM-0026",
+      "timestamp": "2026-04-24T09:05:46",
+      "severity": "high",
+      "category": "anomaly",
+      "title": "Behavioral anomaly detected",
+      "src_ip": "10.0.1.25",
+      "dst_ip": "198.51.100.25",
+      "confidence": 0.8,
+      "reasons": [
+        "bytes_out z-score 8.00 exceeded threshold",
+        "duration_ms z-score 5.00 exceeded threshold"
+      ],
+      "evidence": {
+        "bytes_out_zscore": 8.0,
+        "duration_ms_zscore": 5.0,
+        "protocol": "UDP",
+        "dst_port": 123,
+        "bytes_out": 64,
+        "bytes_in": 22000
+      }
+    },
+    {
+      "alert_id": "CORR-0050",
+      "timestamp": "2026-04-24T09:05:46",
+      "severity": "high",
+      "category": "correlation",
+      "title": "Multi-stage intrusion campaign",
+      "src_ip": "10.0.1.25",
+      "dst_ip": "multiple",
+      "confidence": 0.84,
+      "reasons": [
+        "3 alerts from the same source exceeded the campaign threshold",
+        "alert mix: anomaly=1, protocol=1, signature=1"
+      ],
+      "evidence": {
+        "first_seen": "2026-04-24T09:05:46",
+        "last_seen": "2026-04-24T09:05:46",
+        "related_alert_ids": [
+          "SIG-NTP-AMPLIFICATION-0013",
+          "ANOM-0026",
+          "PROTO-0045"
+        ]
+      }
+    },
+    {
+      "alert_id": "PROTO-0045",
+      "timestamp": "2026-04-24T09:05:46",
+      "severity": "medium",
+      "category": "protocol",
+      "title": "Protocol-aware threat indicator",
+      "src_ip": "10.0.1.25",
+      "dst_ip": "198.51.100.25",
+      "confidence": 0.64,
+      "reasons": [
+        "NTP response volume greatly exceeded request volume"
+      ],
+      "evidence": {
+        "protocol": "UDP",
+        "app": "ntp",
+        "dst_port": 123,
+        "findings": [
+          "NTP amplification pattern"
+        ],
+        "response_ratio": 343.75
+      }
+    },
+    {
+      "alert_id": "SIG-NTP-AMPLIFICATION-0013",
+      "timestamp": "2026-04-24T09:05:46",
+      "severity": "medium",
+      "category": "signature",
+      "title": "NTP amplification behavior",
+      "src_ip": "10.0.1.25",
+      "dst_ip": "198.51.100.25",
+      "confidence": 0.55,
+      "reasons": [
+        "NTP flow shows a large response volume compared with request size."
+      ],
+      "evidence": {
+        "rule_id": "SIG-NTP-AMPLIFICATION",
+        "protocol": "UDP",
+        "dst_port": 123,
+        "bytes_out": 64,
+        "packets_out": 1
+      }
+    }
+  ]
+}
