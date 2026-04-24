@@ -1,0 +1,117 @@
+{
+  "baseline_window": 10,
+  "anomaly_zscore_threshold": 2.7,
+  "campaign_alert_threshold": 3,
+  "min_confidence": 0.55,
+  "assets": {
+    "internal_cidrs": ["10.0.0.0/8", "172.16.0.0/12"],
+    "critical_assets": ["10.0.2.20", "10.0.2.50", "10.0.2.100", "10.0.2.200"],
+    "approved_scanners": ["10.0.9.10"],
+    "authorized_dns_servers": ["10.0.2.53", "10.0.2.54"],
+    "authorized_dhcp_servers": ["10.0.2.1"],
+    "suspicious_ja3": ["72a589da586844d7f0818ce684948eea", "e7d705a3286e19ea42f587b344ee6865"]
+  },
+  "protocol_heuristics": {
+    "scan_distinct_services": 5,
+    "icmp_sweep_hosts": 4,
+    "icmp_packet_burst": 20,
+    "failed_auth_threshold": 3,
+    "dns_long_label_len": 35
+  },
+  "live": {
+    "analysis_interval_seconds": 10,
+    "flow_idle_seconds": 12,
+    "alert_cooldown_seconds": 60
+  },
+  "live_ml": {
+    "warmup_samples": 150,
+    "threshold": 8.0
+  },
+  "rules": [
+    {
+      "rule_id": "SIG-PORTSCAN",
+      "name": "Rapid horizontal scan",
+      "description": "Flags repeated probing behavior from a single source.",
+      "severity": "high",
+      "conditions": {
+        "protocol": "TCP",
+        "packets_out_gte": 3,
+        "packets_in_lte": 2,
+        "bytes_in_lte": 1500,
+        "tcp_flags_contains": "S",
+        "dst_port_in": [21, 22, 23, 80, 135, 139, 443, 445, 3389]
+      }
+    },
+    {
+      "rule_id": "SIG-SSH-BRUTEFORCE",
+      "name": "Repeated SSH authentication pressure",
+      "description": "Large failed SSH flow toward a protected server.",
+      "severity": "high",
+      "conditions": {
+        "app": "ssh",
+        "dst_port_in": [22],
+        "packets_out_gte": 18,
+        "auth_result": "failed"
+      }
+    },
+    {
+      "rule_id": "SIG-RDP-BRUTEFORCE",
+      "name": "Repeated RDP authentication pressure",
+      "description": "Large failed RDP flow toward a remote desktop service.",
+      "severity": "high",
+      "conditions": {
+        "app": "rdp",
+        "dst_port_in": [3389],
+        "packets_out_gte": 16,
+        "auth_result": "failed"
+      }
+    },
+    {
+      "rule_id": "SIG-DNS-TUNNEL",
+      "name": "Suspicious DNS tunneling",
+      "description": "Long DNS queries with outsized egress.",
+      "severity": "critical",
+      "conditions": {
+        "protocol": "UDP",
+        "dst_port_in": [53],
+        "bytes_out_gte": 900,
+        "dns_query_len_gte": 40
+      }
+    },
+    {
+      "rule_id": "SIG-HTTPS-EXFIL",
+      "name": "Potential large HTTPS data exfiltration",
+      "description": "Unusually large outbound transfer over HTTPS.",
+      "severity": "critical",
+      "conditions": {
+        "app": "https",
+        "dst_port_in": [443],
+        "bytes_out_gte": 2500000,
+        "duration_ms_gte": 30000
+      }
+    },
+    {
+      "rule_id": "SIG-SMTP-SPAMBOT",
+      "name": "High-volume direct SMTP egress",
+      "description": "Internal host sent unusually high SMTP packet volume directly to the internet.",
+      "severity": "high",
+      "conditions": {
+        "app": "smtp",
+        "dst_port_in": [25],
+        "packets_out_gte": 100
+      }
+    },
+    {
+      "rule_id": "SIG-NTP-AMPLIFICATION",
+      "name": "NTP amplification behavior",
+      "description": "NTP flow shows a large response volume compared with request size.",
+      "severity": "medium",
+      "conditions": {
+        "app": "ntp",
+        "protocol": "UDP",
+        "dst_port_in": [123],
+        "bytes_in_gte": 10000
+      }
+    }
+  ]
+}
